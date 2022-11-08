@@ -1,0 +1,176 @@
+.perfil-img2 {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.perfil-img {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.perfil-img:hover {
+  cursor: pointer;
+  opacity: 0.3;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.profile-img-eye {
+  opacity: 1;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  display: block !important;
+  background: url(https://enlacecanaco.org/static/images/icon_eye.webp)
+    no-repeat;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+}
+
+.profile-checked {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://enlacecanaco.org/static/images/green_tick-removebg-preview(1).png');
+  background-repeat: repeat;
+  background-size: auto;
+  z-index: 13;
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 15%;
+}
+
+.profile-checked-background {
+  width: 80%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  background-color: #daffbc;
+  z-index: 12;
+  left: 20%;
+}
+/* .custom_marquee {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.custom_marquee h4 {
+  white-space: nowrap;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  line-height: 50px;
+  text-align: left;
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  -moz-animation: custom_marquee 25s linear infinite;
+  -webkit-animation: custom_marquee 25s linear infinite;
+  animation: custom_marquee 25s linear infinite;
+}
+@-moz-keyframes custom_marquee {
+  0% {
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes custom_marquee {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+@keyframes custom_marquee {
+  0% {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+} */
+
+.modal_perfil_logo {
+  width: 150px;
+  object-fit: cover;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.modal_perfil_logo:hover{
+    cursor: pointer;
+    opacity: 0.3;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.modal_perfil_logo_eye {
+  opacity: 1;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  display: block !important;
+  background: url(https://enlacecanaco.org/static/images/icon_eye.webp) no-repeat;
+    background-size: auto;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+}
+
+.modal_perfil_div {
+  text-align: center;
+  height: 50%;
+}
+.modal_perfil_div_text{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+#modal_text_negocio_nombre{
+  background: linear-gradient(90deg, rgba(14,0,255,0.118886390493695) 0%, rgba(3,3,200,0.118886390493695) 28%, rgba(0,212,255,0.1163866230085784) 100%);
+font-size: 1.2rem;
+}
+
+
+.card-title-custom{
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  color: black
+}
+.card-title-custom-action{
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  color: black
+} .card-color{
+  background: linear-gradient(0deg, rgba(114, 34, 195, 0.34) 0%, rgba(159, 45, 253, 0.35) 100%);
+  border-radius: 12px;
+}
+
+.card-color-nuevo-requerimiento{
+  background: linear-gradient(0deg, rgba(69, 195, 34, 0.54) 0%, rgba(71, 253, 45, 0.58) 100%);
+  border-radius: 12px;
+}
+.card-color-afiliado{
+  background: linear-gradient(0deg, rgba(253, 111, 7, 0.34) 0%, rgba(255, 129, 37, 0.38) 100%);
+  border-radius: 12px;
+}
+/* .card-custom-shadow{
+  box-shadow: 0 0 5px #0000008f;
+} */

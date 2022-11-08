@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-12 mb-2 mb-4">
+        Detalle seguimiento
+        <div class="card">
+            <div class="card-body">
+
+                <div class="col-md-12">
+                    <div class="no-more-tables">
+
+                    </div>
+                    <div id="tablaAfiliados"><table id="controls-data-tables-pagination" class="data-table nowrap table table-bordered table-striped" data-order="[[ 0, &quot;desc&quot; ]]">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">
+                                    No.
+                                </th>
+                                <th scope="col">
+                                    Empresa
+                                </th>
+                                <th scope="col">
+                                    Información
+                                </th>
+                                <th scope="col">
+                                    Valoraciones
+                                </th>
+                                <th scope="col">
+                                    Seguimiento
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td>1</td>
+                            <td>Imagen del la empresa<br/> Nombre de la empresa <br/> Valoración</td>
+                            <td>Información del negocio</td>
+                            <td>Valoración (Número)</td>
+                            <td>
+                                <a class="btn btn-primary default btn-default" href="<?= base_url() ?>app/afilcomercios/newafilenlace">
+
+                                    Seguimiento (Número)
+                                </a>
+                            </td>
+                        </tbody>
+
+
+
+
+                    </table></div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

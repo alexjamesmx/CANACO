@@ -80,17 +80,15 @@
         $false_id =  count($requerimientos);
 
         foreach ($requerimientos as $requerimiento) :
-            $modalanular = 'anular' . $i;
-            $divencuesta = 'divsino' . $i;
             $modalinteres = 'interes' . $i;
             $listainteres = 'lista' . $i;
-            $botonmod = 'btnm' . $i;
             $inout = 'inout' . $i;
             $controles = 'controles' . $i;
             $modalseguimiento = 'segmod' . $i;
             $detalles = 'detalles' . $i;
             $modalcalif = 'calif' . $i;
-            if ($requerimiento->estatus != 8) { ?>
+            extract((array)($requerimiento));
+            if ($estatus != 8) { ?>
                 <tr style='height:1px;'>
                     <td data-title="No.">
                         <small> #<?= $false_id  ?></small><br>
@@ -172,10 +170,10 @@
                                     <br>
                                     Seguimiento
                                 </button>
-                                <button style='height:fit-content' class="btn btn-danger default btn-default" onclick="openmodal(<?= $modalanular ?>, <?= $botonmod ?>)">
+                                <button style='height:fit-content' class="btn btn-danger default btn-default" onclick="openmodal()">
                                     <i class="fas fa-times"></i>
                                     <br>
-                                    Eliminar
+                                    Finalizar
                                 </button>
                                 <button style='height:fit-content;border-radius:12px;' role="link" onclick="republicar(<?= $requerimiento->req_id ?>)" class="btn btn-primary default btn-default">
                                     <i class="fas fa-comment"></i>
@@ -223,7 +221,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="<?= $modalanular ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="que" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style=" background-color: #343a40;">
@@ -245,7 +243,7 @@
                                             <div class="form-check form-check-inline">
                                                 <div class="mb-0">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="sipude" value="0" id="sipude" onclick="encuesta('<?= $divencuesta ?>','0',<?= $botonmod ?>,<?= $inout ?>)">
+                                                        <input class="form-check-input" type="radio" name="sipude" value="0" id="sipude" onclick="encuesta('0',<?= $inout ?>)">
                                                         <label class="form-check-label" for="p-fisica">
                                                             Si
                                                         </label>
@@ -255,7 +253,7 @@
                                             <div class="form-check form-check-inline">
                                                 <div class="mb-0">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" value="1" name="sipude" id="nopude" onclick="encuesta('<?= $divencuesta ?>','1',<?= $botonmod ?>,<?= $inout ?>)">
+                                                        <input class="form-check-input" type="radio" value="1" name="sipude" id="nopude" onclick="encuesta('1',<? $inout ?>)">
                                                         <label class="form-check-label" for="p-moral">
                                                             No
                                                         </label>
@@ -266,8 +264,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <div id="<?= $divencuesta ?>">
+                                    <div class="mb-3 alex">
+                                        <div id="encuesta">
                                         </div> <!-- fin divsino -->
                                     </div>
                                 </div>
@@ -275,7 +273,7 @@
                             <input type="hidden" id="<?= $inout ?>" name="<?= $inout ?>" value="" />
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger default btn-default" data-dismiss="modal">Cancelar</button>
-                                <button data-clave='0' type="button" id="<?= $botonmod ?>" onclick="subirdetalle(<?= $requerimiento->req_id ?>,<?= $divencuesta ?> , <?= $controles ?>, <?= $modalinteres ?>,<?= $listainteres ?>)" class="btn-subir-detalle btn btn-primary default btn-default" data-dismiss="modal">Aceptar</button>
+                                <button data-clave='null' type="button" id="btn_aceptar" onclick="subirdetalle(<?= $req_id ?> , <?= $controles ?>, <?= $modalinteres ?>,<?= $listainteres ?>)" class="btn-subir-detalle btn btn-primary default btn-default" data-dismiss="modal">Aceptar</button>
                             </div>
                         </div>
                     </div>
@@ -532,7 +530,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger default btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary default btn-default" data-dismiss="modal" onclick="validarencuesta(<?= $requerimiento->req_id ?>)">Aceptar</button>
+                                    <button type="button" class="btn btn-primary default btn-default" data-dismiss="modal" onclick="validarencuesta(<?= $req_id ?>)">Aceptar</button>
                                 </div>
                             </div>
 

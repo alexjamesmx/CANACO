@@ -165,25 +165,31 @@ class Requirements extends CI_Controller
     {
         $data['interesados'] = $this->Requerimiento_model->get_lista_interesados($req_id);
         $data['req_id'] = $req_id;
+        // print_r($data['interesados']);
+        // die();
         $this->load->view('app/private/components/interesados', $data);
     }
     public function elegido()
     {
-        $req_id = $this->input->post('req_id');
-        $id = $this->input->post('id');
-        $opneg_id = $this->input->post('opneg_id');
-        $datos = ['usuario_elegido' => $id];
-        $estado = $this->Requerimiento_model->actualiza_elegido(
+        //POST
+        $requerimiento_id = $this->input->post('requerimiento_id');
+        $id_usuario_a_elegir = $this->input->post('id_usuario_a_elegir');
+        $oportunidad_negocio_id = $this->input->post('oportunidad_negocio_id');
+        $datos = ['usuario_elegido' => $id_usuario_a_elegir];
+        //ACTUALIZA CAMPO USUARIO ELEGIDO EN TABLA REQUERIMIENTOS 
+        $actualiza_elegido = $this->Requerimiento_model->actualiza_elegido(
             $datos,
-            $req_id
+            $requerimiento_id
         );
-        $clear = $this->Requerimiento_model->clear_opneg($req_id);
-        $oportunidad = $this->Requerimiento_model->actualiza_opneg($opneg_id);
-        if ($estado && $oportunidad && $clear) {
+        //ACTUALIZA CAMPO SELECCIONADO A 0 EN TABLA OPORTUNIDADES_NEGOCIO
+        $oportunidades_negocio_seleccionado_0 = $this->Requerimiento_model->oportunidades_negocio_seleccionado_0($requerimiento_id);
+        //ACTUALIZA CAMPO SELECCIONADO A 1 EN TABLA OPORTUNIDADES_NEGOCIO
+        $oportunidades_negocio_seleccionado_1 = $this->Requerimiento_model->oportunidades_negocio_seleccionado_1($oportunidad_negocio_id);
+        if ($actualiza_elegido && $oportunidades_negocio_seleccionado_1 && $oportunidades_negocio_seleccionado_0) {
             $exit = [
                 'response_code' => 200,
                 'response_type' => 'success',
-                'message' => 'registrado satisfactoriamente',
+                'message' => 'El usuario ha sido seleccionado correctamente',
             ];
         } else {
             $exit = [
@@ -196,16 +202,13 @@ class Requirements extends CI_Controller
     }
     public function eselegido()
     {
-
+        //POST 
         $data = json_decode(file_get_contents('php://input'), true);
-
-
-        $req_id =  $data["req_id"];
+        $requerimiento_id =  $data["requerimiento_id"];
         $estatus = $data["estatus"];
         $comentario = $data["comentario"];
-
         $data = [
-            'req_id' => $req_id,
+            'req_id' => $requerimiento_id,
             'estatus' => $estatus,
             'comentarios_req' => $comentario
         ];
@@ -213,33 +216,31 @@ class Requirements extends CI_Controller
         $json['response_type'] = '';
 
         //SE ELIMINA
-        if ($estatus === '8') {
-
-            $r = $this->Requerimiento_model->delete_requerimiento($data);
-            if ($r) {
-                $json['message'] = 'Eliminado correctamente';
-                $json['res'] = $r;
-                $json['response_type'] = 'info';
-            }
+        // if ($estatus === '8') {
+        $response = $this->Requerimiento_model->delete_requerimiento($data);
+        echo 'RESPUESTA:', $response;
+        if ($response ===  TRUE) {
+            $json['message'] = 'Eliminado correctamente';
+            $json['res'] = $response;
+            $json['response_type'] = 'info';
         }
+        // }
         echo json_encode($json);
     }
     public function noelegido()
     {
-        $req_id = $this->input->post('req_id');
-        $id = $this->input->post('id');
-        $opneg_id = $this->input->post('opneg_id');
+        $requerimiento_id = $this->input->post('requerimiento_id');
+        // $id_usuario_a_deseleccionar = $this->input->post('id_usuario_a_deseleccionar');
+        $oportunidad_negocio_id = $this->input->post('oportunidad_negocio_id');
         $datos = ['usuario_elegido' => null];
-        $estado = $this->Requerimiento_model->actualiza_elegido(
-            $datos,
-            $req_id
-        );
-        $clear = $this->Requerimiento_model->clear_opneg($req_id);
-        if ($estado && $clear) {
+        $actualiza_elegido = $this->Requerimiento_model->actualiza_elegido($datos, $requerimiento_id);
+        $oportunidades_negocio_seleccionado_0 = $this->Requerimiento_model->oportunidades_negocio_seleccionado_0($oportunidad_negocio_id);
+
+        if ($actualiza_elegido && $oportunidades_negocio_seleccionado_0) {
             $exit = [
                 'response_code' => 200,
                 'response_type' => 'success',
-                'message' => 'registrado satisfactoriamente',
+                'message' => 'El usuario ha sido deseleccionado',
             ];
         } else {
             $exit = [
@@ -248,6 +249,7 @@ class Requirements extends CI_Controller
                 'message' => 'Ocurrion un error',
             ];
         }
+        // json_header();
         echo json_encode($exit);
     }
     public function lista_detalles($req_id)

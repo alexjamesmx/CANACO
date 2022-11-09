@@ -73,7 +73,6 @@ class Mis_oportunidades extends CI_Controller
         $data['scripts'][] = 'app/private/modules/paginacion';
         $data['scripts'][] = 'app/private/modules/noti_menu';
         $data['scripts'][] = 'app/private/modules/mis_oportunidades';
-        // $this->actividad_model->get_actividades();
         //DATA DE MI COMERCIO
         $mi_comercio = $this->Reg_user->get_comername($this->usuario_id);
         $mi_comercio_id = $mi_comercio[0]->negocio_id;

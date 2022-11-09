@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-var
-// var clave
 function get_number() {
   let misreqs
   $.ajax({
@@ -24,14 +22,12 @@ function reload_requerimientos() {
     get_number()
   }
 }
-
 jQuery(document).ready(() => {
   if (document.getElementById('todos')) {
     document.getElementById('todos').checked = true
     reload_requerimientos()
   }
 })
-
 function todos() {
   get_number()
   reload_requerimientos()
@@ -78,103 +74,155 @@ function republicar(req_id) {
   })
 }
 
-function encuesta(divencuesta, clave, btn, input) {
-  $(`#${divencuesta}`).html('')
+function encuesta(clave, btn, input) {
+  console.log('encuesta, divencuesta: ', 'clave: ', clave, 'btn: ', btn, 'input: ', input)
+  $(`#encuesta`).html('')
   if (clave === '0') {
-    $(`#${divencuesta}`).html(
-      `<label class="form-label d-block">Cerré mi requerimiento:</label><div class="form-check form-check-inline"><div class="mb-0"><div class="form-check"> <input class="form-check-input" type="radio" name="dentrofuera" value="0" id="dentro" onclick="dentrofuera(0,${btn.id},${input.id})"><label class="form-check-label" for="p-fisica">Dentro de la plataforma</label></div></div></div><div class="form-check form-check-inline"><div class="mb-0"><div class="form-check"><input class="form-check-input"  type="radio"  value="1" name="dentrofuera" id="fuera" onclick="dentrofuera(1,${btn.id},${input.id})"><label class="form-check-label" for="p-moral">Fuera de la plataforma</label></div></div></div>`
+    $(`#encuesta`).html(
+      `<label 
+        class="form-label d-block">
+          Cerré mi requerimiento:
+        </label>
+          <div class="form-check form-check-inline mb-0">
+              <div class="form-check"> 
+                <input class="form-check-input" 
+                type="radio" 
+                onclick="dentrofuera(this)"
+                value="null" 
+                id="dentro" >
+                <label class="form-check-label" 
+                  for="p-fisica">
+                  Dentro de la plataforma
+                </label>
+              </div>
+          </div>
+          
+          <div class="form-check form-check-inline mb-0">
+              <div class="form-check">
+                <input class="form-check-input"  
+                type="radio"  
+                value="null" 
+                onclick="dentrofuera(this)"
+                id="fuera" >
+                <label class="form-check-label" 
+                for="p-moral">
+                Fuera de la plataforma
+                </label>
+              </div>
+          </div>`
     )
   } else if (clave === '1') {
-    console.log('AQUI ENTRO')
     $('.btn-subir-detalle').attr('data-clave', clave)
-
-    $(`#${divencuesta}`).html(
-      `  <div class="card m-12" id="div_modal"><h5>Agrega un comentario sobre por que deseas eliminar el requerimiento</h5>   </div><div class="card m-12" id="div_modal"> <textarea id="comentario" onkeyup="dentrofuera(3,${btn.id},${input.id})" name="rechaza" class="form-control ps-5"></textarea></div>`
+    $(`#encuesta`).html(
+      `  <div class="card m-12" id="div_modal"><h5>Agrega un comentario sobre por que deseas eliminar el requerimiento</h5>   </div><div class="card m-12" id="div_modal"> <textarea id="comentario" onkeyup="dentrofuera('3',this)" name="rechaza" class="form-control ps-5"></textarea></div>`
     )
   }
 }
 
-function dentrofuera(clave, btn, input) {
-  $(btn).prop('disabled', false)
-  $(input).val(clave)
+function dentrofuera(input) {
+  const id = input.getAttribute('id')
+
+  if(id === 'dentro'){
+    document.getElementById('fuera').checked = false
+  // document.querySelector('#'+id).value = dentrofuera
+    $('.btn-subir-detalle').attr('data-clave', 'dentro')
+  } 
+  if(id === 'fuera'){
+    document.getElementById('dentro').checked = false
+    $('.btn-subir-detalle').attr('data-clave','fuera')  
+  } 
+  document.getElementById('btn_aceptar').disabled = false
+  // btn.disabled=  false
+  // btn.prop('disabled', false)
+  // if(id === 'dentro'){
+  //   $('.btn-subir-detalle').attr('data-clave') = 'dentro'
+  // } 
+
 }
 
-function seleccionar(id, req_id, opneg_id) {
+function seleccionar(id_usuario_a_elegir, requerimiento_id, oportunidad_negocio_id) {
   $.ajax({
     url: `${base_url()}app/requirements/elegido`,
-    data: { id, req_id, opneg_id },
+    data: { id_usuario_a_elegir, requerimiento_id, oportunidad_negocio_id },
     type: 'post',
-    dataType: 'json',
-    success(response) {
+    dataType: 'json'
+  }).done((response)=>{
       toastr[response.response_type](
         'Se ha elegido a este usuario para que se encargue de tu requerimiento'
       )
-      document
-        .getElementById('deseleccionar')
-        .setAttribute('style', 'display: flex')
-      document
-        .getElementById('seleccionar')
-        .setAttribute('style', 'display: none')
-    },
+      if(response.response_type === 'success'){
+        document.getElementById('deseleccionar').setAttribute('style', 'display: flex')
+        document.getElementById('seleccionar').setAttribute('style', 'display: none')
+      }
   })
 }
 
-function deseleccionar(id, req_id, opneg_id) {
+function deseleccionar(id_usuario_a_deseleccionar, requerimiento_id, oportunidad_negocio_id) {
+  console.log('Deseleccionar, AQUI ENTRO 2')
   $.ajax({
     url: `${base_url()}app/requirements/noelegido`,
-    data: { id, req_id, opneg_id },
+    data: { id_usuario_a_deseleccionar, requerimiento_id, oportunidad_negocio_id },
     type: 'post',
     dataType: 'json',
-    success(response) {
+  }).done(function(response){
+   
+      console.log('Deseleccionado')
       toastr[response.response_type](
         'Se ha elegido a este usuario para que se encargue de tu requerimmiento'
       )
-      document
-        .getElementById('deseleccionar')
-        .setAttribute('style', 'display: none')
-      document
-        .getElementById('seleccionar')
-        .setAttribute('style', 'display: flex')
-    },
+      if(response.response_type == 'success'){
+        document.getElementById('deseleccionar').setAttribute('style', 'display: none')
+        document.getElementById('seleccionar').setAttribute('style', 'display: flex')
+      }  
   })
 }
 
-function subirdetalle(req_id, divencuesta, controles, modal, div) {
-  let estatus
-  const comentario = $('#comentario').val().trim()
+function subirdetalle(requerimiento_id, divencuesta, controles, modal, div) {
+
   const clave = $('.btn-subir-detalle').attr('data-clave')
-  // console.log( comentario )
 
-  // console.log( 'clave secreta ', $( '.btn-subir-detalle' ).attr( 'data-clave' ) )
-
-  // if ( clave === 0 ) {
-  //   $( selector ).attr( attributeName )
-  //   estatus = '21'
-  // } else if ( clave === 1 ) {
-  //   estatus = '22'
-  // } else if ( clave === 3 ) {
-  //   estatus = '23'
-  //   comentario = $( '#txt' ).val()
-
-  // }
+  let comentario = document.getElementById('comentario')
+  if(comentario != null){
+     comentario = $('#comentario').val().trim()
+  }
+  
+  let estatus = null
+  if ( clave === 'dentro' ) {
+    // $( selector ).attr( attributeName )
+    estatus = '21'
+  } else if ( clave === 'fuera') {
+    estatus = '22'
+  } else if ( clave === 'no_solventado' ) {
+    estatus = '23'
+    comentario = $( '#txt' ).val()
+  }
   if (clave === '1') estatus = '8'
 
-  fetch(`${base_url()}app/requirements/eselegido`, {
-    method: 'post',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ req_id, estatus, comentario }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log('si llego')
-      console.log(res)
-      if (res.res) {
-        toastr[res.response_type](res.message)
-      }
-    })
+  console.log('COMENTARIO:', comentario )
+  console.log('CLAVE:', clave)
+  console.log('ESTATUS', estatus)
+
+  // fetch(`${base_url()}app/requirements/eselegido`, {
+  //   method: 'post',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({ requerimiento_id, estatus, comentario }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log('si llego')
+  //     console.log(res)
+  //     if (res.res) {
+  //       toastr[res.response_type](res.message)
+  //     }
+  //   })
+
+
+    closeModal(modal,div)
+
+
   // $.ajax( {
   //   url: `${base_url()}app/requirements/eselegido`,
   //   type: 'post',
@@ -220,13 +268,38 @@ function subirdetalle(req_id, divencuesta, controles, modal, div) {
   // } )
 }
 
-function openmodal(modal, btn) {
-  const myModal = new bootstrap.Modal(document.getElementById(modal.id))
-  $(btn).prop('disabled', true)
-  myModal.show()
+function openmodal(modal) {
+  // const myModal = new bootstrap.Modal(document.getElementById(modal.id))
+  // $(btn).prop('disabled', true)
+//  const modal  =  document.getElementById('que')
+if(  document.getElementById('fuera') ||  
+  document.getElementById('dentro') ){
+    if(document.getElementById('fuera').checked || document.getElementById('dentro').checked ){
+      document.getElementById('btn_aceptar').disabled = false
+    }
+    else{
+      document.getElementById('btn_aceptar').disabled = true
+      // document.getElementById('encuesta').innerHTML = ""
+    }
+
+}
+else{
+  document.getElementById('btn_aceptar').disabled = true
 }
 
-function opencalif(modal) {
+  $('#que').modal('show')
+}
+function closeModal(modal,div){
+  console.log(div)
+  alert('AQUI ')
+
+  console.log(modal)
+  document.getElementById('fuera').checked = false
+  document.getElementById('dentro').checked = false
+  div.innerHTML = ''
+}
+
+function opencalif(asd, modal) {
   const myModal = new bootstrap.Modal(document.getElementById(modal.id))
   myModal.show()
 }
@@ -287,7 +360,15 @@ function noleido(id) {
 }
 
 function contacto(div) {
+  console.log(div)
+if(  div.style.display === 'none'){
+
   $(div).css({ display: '' })
+}
+else{
+  $(div).css({ display: 'none' })
+}
+
 }
 
 function contactwhats(telefono, text, opnegocio_id, requerimiento) {
@@ -413,3 +494,7 @@ function validarencuesta(id_req) {
     })
   }
 }
+
+
+
+

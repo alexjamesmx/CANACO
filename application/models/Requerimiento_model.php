@@ -342,7 +342,7 @@ class Requerimiento_model extends CI_Model
         }
     }
 
-    public function actualiza_opneg($id)
+    public function oportunidades_negocio_seleccionado_1($id)
     {
         try {
             $data = ['seleccionado' => 1];
@@ -354,13 +354,12 @@ class Requerimiento_model extends CI_Model
         }
     }
 
-    public function clear_opneg($id)
+    public function oportunidades_negocio_seleccionado_0($id)
     {
         try {
             $data = ['seleccionado' => 0];
-            $this->db->where('requerimiento_id', $id);
-            $this->db->update('oportunidades_negocio', $data);
-            return true;
+            $this->db->where('opneg_id', $id);
+            return $this->db->update('oportunidades_negocio', $data);
         } catch (Exception $e) {
             return $e->getMessage();
         }

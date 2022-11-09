@@ -253,12 +253,23 @@ class Myaccount extends CI_Controller
         $data = $this->accounts_model->get_datauser(
             $this->usuario_id
         );
+
         echo json_encode($data[0]->email_auth);
+
+
+        // send_mail(
+        //     'ENLACE-CANACO', //Quien lo envia
+        //     $data['comercios'][$i]->email_auth, //destinatario
+        //     $data['mail']->titulo, //asunto
+        //     $html = $this->load->view(
+        //         'app/private/components/notificacion_id16',
+        //         $data,
+        //         true
+        //     ), //Cuerpo (puede ser una vista)
+        //     $attach = null //adjunto
+        // );
     }
-    /**
-     * [new description]
-     * @return [type] [description]
-     */
+
     public function doupdate()
     {
         $this->permiso_id = get_role_permission(

@@ -509,6 +509,8 @@ class User extends CI_Controller
                 $attach = $atach //adjunto
             );
             var_dump($mail);
+        } else {
+            echo 'que';
         }
 
 
@@ -535,56 +537,58 @@ class User extends CI_Controller
     public function mensaje_correo()
     {
 
-
         $mymail = $this->input->post('mymail');
         $clientemail = $this->input->post('clientemail');
         $opnegocio_id = $this->input->post('opnegocio_id');
-        $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
 
-        $mensaje = $this->input->post('mensaje');
+        // $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
 
-        $info = $this->Mensaje_model->info_req($opnegocio_id);
+        // $mensaje = $this->input->post('mensaje');
 
-        $req_id = $info[0]->requerimiento_id;
-        $id_cliente = $info[0]->comercio_id;
-        $fecha = date("YmdHis");
+        // $info = $this->Mensaje_model->info_req($opnegocio_id);
 
-        $this->load->library('email');
-        $this->email->from($mymail, 'Canaco');
-        $this->email->to($clientemail);
-        $this->email->subject('Interes en requerimiento canaco');
-        $this->email->message($mensaje);
-        $this->email->send();
+        // $req_id = $info[0]->requerimiento_id;
+        // $id_cliente = $info[0]->comercio_id;
+        // $fecha = date("YmdHis");
 
-
-        $id_req = $this->Reg_user->get_estatus_req($opnegocio_id);
-        if ($id_req[0]->estatus != 18) {
-            $doc = $id_req[0]->cotizacion_opng;
-            $mail = $this->Reg_user->get_name2($req_id); //cambio por $this->usuarios_id
-            // $req_id=$info[0]->requerimiento_id;
-            $this->Mensaje_model->agregar_detalle($req_id, $id_cliente, $fecha);
-            $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
-            $email = $mail[0]->email_auth;
-            $data_mail = $this->Notificacion_model->get_notificacion("14"); //traer la informacion de la notificacion correspondiente
-            $this->load->view('app/private/components/noti', $data_mail);
-
-            //Primero debemos de consultar en la base de datos si existe un documento al mandar el correo
-            if (isset($doc)) { //$doc es el nombre del documento pdf guardado en la base de datos
-                $atach = base_url() . '/static/uploads/cotizaciones/' . $doc; // doc es el nombre de la coizacion gusradad en la base de  datos 
-            } else {
-                $atach = null;
-            }
-            send_mail(
-                'ENLACE-CANACO', //Quien lo envia
-                $email, //destinatario rempplazar por $email
-                $data_mail->titulo, //asunto
-                $html = ($this->load->view('app/private/components/noti', $data_mail, true)), //Cuerpo (puede ser una vista) 
-                $attach = $atach //adjunto
-            );
-        }
+        // $this->load->library('email');
+        // $this->email->from($mymail, 'Canaco');
+        // $this->email->to($clientemail);
+        // $this->email->subject('Interes en requerimiento canaco');
+        // $this->email->message($mensaje);
+        // $this->email->send();
 
 
-        $this->Mensaje_model->actualizar_mensaje_correo($mensaje, $opnegocio_id, $req_id, $id_cliente, $fecha);
+        // $id_req = $this->Reg_user->get_estatus_req($opnegocio_id);
+
+        // if ($id_req[0]->estatus != 18) {
+        //     $doc = $id_req[0]->cotizacion_opng;
+        //     $mail = $this->Reg_user->get_name2($req_id); //cambio por $this->usuarios_id
+        //     // $req_id=$info[0]->requerimiento_id;
+        //     $this->Mensaje_model->agregar_detalle($req_id, $id_cliente, $fecha);
+        //     $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
+        //     $email = $mail[0]->email_auth;
+        //     $data_mail = $this->Notificacion_model->get_notificacion("14"); //traer la informacion de la notificacion correspondiente
+        //     $this->load->view('app/private/components/noti', $data_mail);
+
+        //     //Primero debemos de consultar en la base de datos si existe un documento al mandar el correo
+        //     if (isset($doc)) { //$doc es el nombre del documento pdf guardado en la base de datos
+        //         $atach = base_url() . '/static/uploads/cotizaciones/' . $doc; // doc es el nombre de la coizacion gusradad en la base de  datos 
+        //     } else {
+        //         $atach = null;
+        //     }
+        //     print_r($email);
+        //     send_mail(
+        //         'ENLACE-CANACO', //Quien lo envia
+        //         $email, //destinatario rempplazar por $email
+        //         $data_mail->titulo, //asunto
+        //         $html = ($this->load->view('app/private/components/noti', $data_mail, true)), //Cuerpo (puede ser una vista) 
+        //         $attach = $atach //adjunto
+        //     );
+        // } else {
+        //     echo 'que';
+        // }
+        // $this->Mensaje_model->actualizar_mensaje_correo($mensaje, $opnegocio_id, $req_id, $id_cliente, $fecha);
     }
 
 

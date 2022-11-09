@@ -115,8 +115,7 @@
                                 <h5 class="text-center">
                                     <i class="fas fa-clock"></i>
                                     <br>
-                                    Aplicado, pendiente de respuesta
-
+                                    En espera
                                     <?= '<hr> Cotizacion subida' ?>
                                 </h5>
                             </div>
@@ -203,13 +202,13 @@
                                 $status == '17'
                             ) { ?>
                                 <div class="btn-group">
-                                    <?php if (!isset($cotizacion_opng)) { ?>
+                                    <!-- <?php if (!isset($cotizacion_opng)) { ?>
                                         <button class="btn btn-dark default btn-default" data-dismiss="modal" onclick='showcoti(<?= $coti ?>)'>
                                             <i class="fas fa-upload"></i>
                                             <br>
                                             Anexar cotizacion
                                         </button>
-                                    <?php } ?>
+                                    <?php } ?> -->
                                     <button class="btn btn-dark default btn-default" data-dismiss="modal" onclick='aplicar(<?= $usuario_id ?>,<?= $opnegocio_id ?>,<?= $controls ?>,<?= $estatus_actual ?>,<?= $modal ?>,<?= $modalcancelar ?>,<?= $req_id ?>,"<?= $cotizacion_opng ?>",<?= $coti ?>)'>
                                         <i class="fas fa-check"></i>
                                         <br>
@@ -220,11 +219,11 @@
                                         <br>
                                         No me interesa
                                     </button>
-                                    <button class="btn btn-primary default btn-default" onclick="contactmodal(<?= $modal ?>)">
+                                    <!-- <button class="btn btn-primary default btn-default" onclick="contactmodal(<?= $modal ?>)">
                                         <i class="fas fa-comment"></i>
                                         <br>
                                         Contactar
-                                    </button>
+                                    </button> -->
                                 <?php } else if (
                                 $status == '18'
                             ) { ?>
@@ -400,12 +399,12 @@
 
                                     </div>
                                     &nbsp;
-                                    <div id="modal-contact" class="col-sm-12 text-center">
+                                    <!-- <div id="modal-contact" class="col-sm-12 text-center">
                                         <button class='btn btn-warning default btn-default' onclick='send_email("<?= $negocio_vent_correo ?>","<?= $mensaje ?>", "<?= $opnegocio_id ?>")'> <i class="fas fa-envelope-open fa-fw"></i>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             Contactar via Email</button>
                                     </div>
-                                    &nbsp;
+                                    &nbsp; -->
                                 </div>
                             </div>
                         </div>

@@ -174,3 +174,46 @@ font-size: 1.2rem;
 /* .card-custom-shadow{
   box-shadow: 0 0 5px #0000008f;
 } */
+
+
+.myaccount-img {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  margin: 0 !important;
+
+}
+
+
+.myaccount-img:hover {
+  cursor: pointer;
+  opacity: 0.3;
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+
+  
+}
+.profile-img-eye {
+  opacity: 1;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  display: block !important;
+  background: url(https://enlacecanaco.org/static/images/icon_eye.webp)
+    no-repeat;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+}
+
+.btn-colapse-valor{
+  display: flex;
+width: 100%;
+justify-content: space-between;
+}
+.btn-colapse-valor h5, h2{
+  align-self: center;
+  margin: 0;
+  padding: 0;
+}

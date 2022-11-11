@@ -4,7 +4,6 @@
         animation-duration: 2.5;
         animation-timing-function: linear;
         animation-iteration-count: infinite;
-
         -webkit-animation-name: parpadeo;
         -webkit-animation-duration: 2.5s;
         -webkit-animation-timing-function: linear;
@@ -92,38 +91,38 @@
                 <tr style='height:1px;'>
                     <td data-title="No.">
                         <small> #<?= $false_id  ?></small><br>
-                        <small> #<?= $requerimiento->req_id  ?></small>
+                        <small> #<?= $req_id  ?></small>
                     </td>
                     <td data-title="Solicitud" class='justify-content-between' style="width:300px;">
                         <strong>¿Qué buscas?</strong></br>
-                        <?= $requerimiento->busq_nec ?>
+                        <?= $busq_nec ?>
                         <hr>
-                        <strong>Cantidad </strong><?= $requerimiento->qty ?>
+                        <strong>Cantidad </strong><?= $qty ?>
                         <hr>
-                        <strong>Descripción </strong></br><?= $requerimiento->especificaciones  ?>
+                        <strong>Descripción </strong></br><?= $especificaciones  ?>
                         <hr>
-                        <strong>Disponible desde:</strong><br> <?= $requerimiento->fecha_req ?>
-                        <?php if ($requerimiento->republicado) { ?>
+                        <strong>Disponible desde:</strong><br> <?= $fecha_req ?>
+                        <?php if ($republicado) { ?>
                             <hr>
                             <strong>Requerimiento Republicado</strong>
                         <?php } ?>
                     </td>
                     <?php
-                    if ($requerimiento->interesados >= 1) {
+                    if ($interesados >= 1) {
                         $estado =
                             'Hay comercios interesados en tu requerimiento';
-                    } elseif ($requerimiento->interesados == 0) {
+                    } elseif ($interesados == 0) {
                         $estado =
                             'En espera';
                     }
                     if (
-                        $requerimiento->usuario_elegido !== '0' &&
-                        isset($requerimiento->usuario_elegido)
+                        $usuario_elegido !== '0' &&
+                        isset($usuario_elegido)
                     ) {
                         $estado =
                             'Se ha elegido a un comercio para resolver este requerimiento';
                     }
-                    if (isset($requerimiento->estatus)) {
+                    if (isset($estatus)) {
                         $estado = 'Requerimiento concluido';
                     }
                     ?>
@@ -135,13 +134,13 @@
                         </h5>
                     </td>
                     <?php if (
-                        $requerimiento->estatus == '21' ||
-                        $requerimiento->estatus == '22' ||
-                        $requerimiento->estatus == '23'
+                        $estatus == '21' ||
+                        $estatus == '22' ||
+                        $estatus == '23'
                     ) { ?>
                         <td data-title="Acciones" style="height:100%;">
                             <div style='height:100%;margin:0'>
-                                <?php if ($requerimiento->req_calf_status == 1) {  ?>
+                                <?php if ($req_calf_status == 1) {  ?>
                                     <!-- 50% -->
                                     <div id="<?= $controles ?>" style="justify-content:center; display:flex; height: 100%;" class='padre'>
 
@@ -150,12 +149,12 @@
                                         <div id="<?= $controles ?>" style="justify-content: center; display:flex; height: 100%;" class='padre'>
                                             <h5 class="text-center" style='align-self: center;'><i class="fas fa-times"></i><br>Sin evaluar</h5>
                                         <?php } ?>
-                                        <?php if ($requerimiento->estatus == '21' && $requerimiento->req_calf_status == 0) { ?>
-                                            <button class="btn btn-primary default btn-default" onclick="opencalif(<?= $modalcalif ?>)">
+                                        <?php if ($estatus == '21' && $req_calf_status == 0) { ?>
+                                            <button class="btn btn-primary default btn-default" onclick="opencalif( )">
                                                 <i class="fas fa-clipboard-list"></i>
                                                 Califica
                                             </button>
-                                        <?php } else  if ($requerimiento->req_calf_status == 1) { ?>
+                                        <?php } else  if ($req_calf_status == 1) { ?>
                                             <h5 class="text-center" style="align-self:center;"><i class="fas fa-check"></i><br>Evaluado, calificación: <?= $requerimiento->promedio ?> </h5>
                                         </div>
                                     <?php } ?>
@@ -184,19 +183,19 @@
                         </td>
                     <?php } ?>
                     <td data-title="Acciones" style="height:100%;">
-                        <?php if (!isset($requerimiento->fecha_fin_req)) { ?>
+                        <?php if (!isset($fecha_fin_req)) { ?>
                             <div class="" style="  height: 100%;width: 100%;display: flex;justify-content:center">
                                 <div style="height: 33%;align-self: center;" class="btn-group">
-                                    <button <?php if ($requerimiento->interesados > 0) { ?> class="btn btn-dark default btn-default animacion" <?php } else { ?> class="btn btn-dark default btn-default" <?php } ?> onclick='modalinteres(<?= $modalinteres ?>,<?= $listainteres ?>,<?= $requerimiento->req_id ?>)'>
+                                    <button <?php if ($interesados > 0) { ?> class="btn btn-dark default btn-default animacion" <?php } else { ?> class="btn btn-dark default btn-default" <?php } ?> onclick='modalinteres(<?= $modalinteres ?>,<?= $listainteres ?>,<?= $req_id ?>)'>
                                         <i class="fas fa-user-friends"></i>
                                         <br>
-                                        Comercios interesados: <?= $requerimiento->interesados ?>
+                                        Comercios interesados: <?= $interesados ?>
                                     </button>
                                 </div>
                             </div>
                         <?php } else { ?>
                             <div style="justify-content:center; display:flex;height:100%">
-                                <h5 class="text-center" style="align-self:center;"><i class=" fas fa-clipboard-list"></i><br>Finalizado el </br><?= fancy_date($requerimiento->fecha_fin_req, 'd-m-y') ?></h5>
+                                <h5 class="text-center" style="align-self:center;"><i class=" fas fa-clipboard-list"></i><br>Finalizado el </br><?= fancy_date($fecha_fin_req, 'd-m-y') ?></h5>
                             </div>
                         <?php } ?>
                     </td>
@@ -221,7 +220,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="que" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal_encuesta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style=" background-color: #343a40;">
@@ -272,13 +271,13 @@
                             </div>
                             <input type="hidden" id="<?= $inout ?>" name="<?= $inout ?>" value="" />
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger default btn-default" data-dismiss="modal">Cancelar</button>
+                                <button onclick="handleCancelar()" type="button" class="btn btn-danger default btn-default" data-dismiss="modal">Cancelar</button>
                                 <button data-clave='null' type="button" id="btn_aceptar" onclick="subirdetalle(<?= $req_id ?> , <?= $controles ?>, <?= $modalinteres ?>,<?= $listainteres ?>)" class="btn-subir-detalle btn btn-primary default btn-default" data-dismiss="modal">Aceptar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="<?= $modalcalif ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal_calificaciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header" style=" background-color: #343a40;">

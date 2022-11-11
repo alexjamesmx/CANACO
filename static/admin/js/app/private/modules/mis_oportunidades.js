@@ -1,21 +1,18 @@
 
 function divmagico() {
-    let misdatos
-    if ($('#info').val() !== undefined && $('#info').val() !== null) {
-      misdatos = JSON.parse($('#info').val())
-      let divi
+      const misdatos = JSON.parse($('#info').val())
+      console.log('MIS DATOS: ', misdatos)
       if (misdatos !== undefined) {
         misdatos.forEach((minidato, i) => {
           try {
-            divi = `magic${i}`
-            $(`#${divi}`).load(
+            $(`#magic${i}`).load(
               base_url(`app/perfil/profiles/${minidato.usuario_id}`)
             )
-          } catch (error) {}
+          } catch (error) {console.log(error)}
         })
       }
-    } 
   }
+  
   function aplicar(
     cliente_id,
     opnegocio_id,
@@ -122,4 +119,9 @@ function divmagico() {
         })
       },
     })
+  }
+
+  function modal_abrir() {
+    $('#modal_examen').modal('show'); 
+ 
   }

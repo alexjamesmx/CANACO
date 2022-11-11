@@ -6,8 +6,16 @@ function reload_keywords() {
     dataType: 'json',
   } ).done( ( data ) => {
     const porcentajePerfil = parseInt( data.message, 10 )
-    $( '#progreso' ).attr( 'style', `width: ${porcentajePerfil}%` )
-    $( '#progreso' ).text( `${porcentajePerfil}%` )
+    if(document.getElementById('progreso').style.width != porcentajePerfil){
+      $( '#progreso' ).attr( 'style', `width: ${porcentajePerfil}%` )
+      $( '#progreso' ).text( `${porcentajePerfil}%` )
+    }
   } )
   $( '#tbl-tbody-show-act-kw' ).load( base_url( 'app/myaccount/showkeywordsproductoservicio' ) )
+}
+
+
+
+function requerimiento_imagen(id_usuario) {
+    window.open(`${base_url()}/app/perfil/perfil_publico/${id_usuario}`)
 }

@@ -537,9 +537,10 @@ class User extends CI_Controller
     public function mensaje_correo()
     {
 
-        $mymail = $this->input->post('mymail');
-        $clientemail = $this->input->post('clientemail');
-        $opnegocio_id = $this->input->post('opnegocio_id');
+        $mi_correo = $this->input->post('mi_correo');
+        $correo_cliente = $this->input->post('correo_cliente');
+        $id_oportunidad_negocio = $this->input->post('id_oportunidad_negocio');
+
 
         // $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
 

@@ -210,7 +210,8 @@ class Requirements extends CI_Controller
         $data = [
             'req_id' => $requerimiento_id,
             'estatus' => $estatus,
-            'comentarios_req' => $comentario
+            'comentarios_req' => $comentario,
+            "fecha_fin_req" => date('Y-m-d H:i:s')
         ];
         $json['res'] = false;
         $json['response_type'] = '';
@@ -264,23 +265,30 @@ class Requirements extends CI_Controller
     {
 
         $data['mis_requerimientos'] = $this->Requerimiento_model->get_mis_requerimientos($this->usuario_id);
+        print_r($data['mis_requerimientos']);
 
-
-        $data['requerimientos'] = $this->Requerimiento_model->get_interesados(
+        $array1 = $this->Requerimiento_model->get_interesados(
             $this->usuario_id
         );
-        // print_r($data['requerimientos']);
+
+        $array2 = $this->Requerimiento_model->get_interesados_activos(
+            $this->usuario_id
+        );
+
+        $data['requerimientos'] = array_merge(
+            $array1,
+            $array2
+        );
+
         if ($data['requerimientos']) {
             $this->load->view('app/private/components/tablareq', $data);
         } else {
-            echo "<script> location.href='https://enlacecanaco.org/app/requirements/new'; </script>";
+            // echo "<script> location.href='https://enlacecanaco.org/app/requirements/new'; </script>";
             exit;
         }
     }
     public function tablareq_activos()
     {
-        // $data['scripts'][] = 'app/private/modules/requerimientos';
-        // $data['scripts'][] = 'app/private/modules/newrequirement';
         $data['requerimientos'] = $this->Requerimiento_model->get_interesados_activos(
             $this->usuario_id
         );

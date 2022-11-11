@@ -91,20 +91,20 @@ class Mis_oportunidades extends CI_Controller
     public function tablaoportunidades()
     {
 
-        $data['styles'][] = 'vendor/smart_wizard.min';
-        $data['scripts'][] = 'vendor/jquery.smartWizard.min';
-        $data['stylescdn'][] =
-            'https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css';
-        $data['scriptscdn'][] =
-            'https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js';
-        $data['scripts'][] = 'app/private/modules/controladortabla';
+        // $data['styles'][] = 'vendor/smart_wizard.min';
+        // $data['scripts'][] = 'vendor/jquery.smartWizard.min';
+        // $data['stylescdn'][] =
+        //     'https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css';
+        // $data['scriptscdn'][] =
+        //     'https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js';
+        // $data['scripts'][] = 'app/private/modules/controladortabla';
 
         $data['scripts'][] = 'app/private/modules/oportunidades';
         $micom = $this->Reg_user->get_comername($this->usuario_id);
         if (!is_null($micom)) {
             $idcom = $micom[0]->negocio_id;
             $data['misreq'] = $this->Reg_user->get_myreq($idcom);
-            $html = $this->load->view('public/components/mis_oportunidades', $data);
+            $this->load->view('public/components/mis_oportunidades', $data);
         } else {
             echo '
             <div class="row">
@@ -134,9 +134,13 @@ class Mis_oportunidades extends CI_Controller
         $mi_comercio = $this->Reg_user->get_comername($this->usuario_id);
 
         if (!is_null($mi_comercio)) {
+            // echo 'ka';
             $mi_comercio_id = $mi_comercio[0]->negocio_id;
             $data['mi_id'] = $this->usuario_id;
+
             $data['mis_requerimientos'] = $this->Reg_user->get_mis_requerimientos_pagina($mi_comercio_id, $page);
+            print_r($data['mis_requerimientos']);
+            // echo 'que';
             $this->load->view('app/private/components/tablaops', $data);
         } else {
             echo '

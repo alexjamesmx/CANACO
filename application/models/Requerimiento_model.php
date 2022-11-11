@@ -117,27 +117,13 @@ class Requerimiento_model extends CI_Model
             req_id AS id,
             (SELECT COUNT(*) FROM estatus_req WHERE requerimiento_id=id AND estatus='18') AS interesados
             FROM requerimientos 
-            JOIN evaluacion_req  ON evaluacion_req.id_req=requerimientos.req_id 
+            -- JOIN evaluacion_req  ON evaluacion_req.id_req=requerimientos.req_id 
             WHERE  requerimientos.usuario_id='" .
                 $usuario_id .
                 "'  order by requerimientos.req_id desc"
         );
-        if ($query->num_rows() === 0) {
-            $query = $this->db->query(
-                "SELECT * , 
-                req_id AS id, 
-                (SELECT COUNT(*) FROM estatus_req WHERE requerimiento_id=id AND estatus='18')AS interesados 
-                FROM requerimientos  
-                WHERE estatus is NULL and usuario_id='" .
-                    $usuario_id .
-                    "' order by requerimientos.req_id desc"
-            );
 
-            return $query->num_rows() >= 1 ? $query->result() : null;
-        }
-        return $query->result();
-
-        // return $query->num_rows() > 0 ? $query->result() : null;
+        return $query->num_rows() > 0 ? $query->result_array() : [];
     }
 
     public function get_interesados_activos($usuario_id)
@@ -152,7 +138,7 @@ class Requerimiento_model extends CI_Model
                 "' order by requerimientos.req_id desc"
         );
 
-        return $query->num_rows() >= 1 ? $query->result() : null;
+        return $query->num_rows() >= 1 ? $query->result() : [];
     }
     public function get_myreq_number_a($id)
     {

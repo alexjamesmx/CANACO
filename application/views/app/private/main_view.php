@@ -161,10 +161,10 @@
             <div class="footer-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-6" style="align-self:center">
                             <p class="mb-0 text-muted"><strong>ENLACE - CANACO &reg; <?= date('Y') ?>. Todos los Derechos Reservados </strong></p>
                         </div>
-                        <div class="col-sm-6 d-none d-sm-block">
+                        <div class="col-sm-6 d-none d-sm-block" style="align-self:center">
                             <ul class="breadcrumb pt-0 pr-0 float-right">
                                 <li class="breadcrumb-item mb-0">
                                     <a href="https://www.canacoqueretaro.org/quienes-somos" target="_blank" class="btn-link">¿Quienes somos?</a>

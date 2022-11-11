@@ -293,6 +293,9 @@ jQuery(document).ready(($) => {
         $(this).attr('data-afiliado') === 1 ||
         $(this).attr('data-afiliado') === '1'
       ) {
+
+
+
         $(this).prop('checked', true)
       } else {
         $(this).prop('checked', false)

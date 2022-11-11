@@ -391,7 +391,7 @@ function rechazar(cliente_id, opnegocio_id, controls, estatus, rechaza) {
   })
 }
 function modalacepta(modal) {
-  const myModal = new bootstrap.Modal(document.getElementById(modal.id))
+  const myModal = document.getElementById('modal_abrir')
   myModal.show()
 }
 function modalbi(modal) {

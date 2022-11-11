@@ -209,6 +209,7 @@
                         <i class="fas fa-times"> </i> Cancelar
                     </button> -->
             </div>
+        </div>
 
-        <?php } ?>
+    <?php } ?>
 </form>

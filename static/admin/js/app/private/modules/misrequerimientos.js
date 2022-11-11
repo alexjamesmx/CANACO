@@ -75,9 +75,10 @@ function republicar(req_id) {
 }
 
 function encuesta(clave, btn, input) {
-  console.log('encuesta, divencuesta: ', 'clave: ', clave, 'btn: ', btn, 'input: ', input)
   $(`#encuesta`).html('')
   if (clave === '0') {
+    
+    if(document.getElementById('btn_aceptar').disabled === false) document.getElementById('btn_aceptar').disabled = true
     $(`#encuesta`).html(
       `<label 
         class="form-label d-block">
@@ -112,19 +113,29 @@ function encuesta(clave, btn, input) {
           </div>`
     )
   } else if (clave === '1') {
+    if(document.getElementById('btn_aceptar').disabled === false) document.getElementById('btn_aceptar').disabled = true
     $('.btn-subir-detalle').attr('data-clave', clave)
+    document.getElementById('btn_aceptar').disabled = true
     $(`#encuesta`).html(
-      `  <div class="card m-12" id="div_modal"><h5>Agrega un comentario sobre por que deseas eliminar el requerimiento</h5>   </div><div class="card m-12" id="div_modal"> <textarea id="comentario" onkeyup="dentrofuera('3',this)" name="rechaza" class="form-control ps-5"></textarea></div>`
+      `  <div class="card m-12" id="div_modal"><h5>Agrega un comentario sobre por que deseas eliminar el requerimiento</h5>   </div><div class="card m-12" id="div_modal"> <textarea id="comentario" onkeyup="no_pude(this)" name="rechaza" class="form-control ps-5"></textarea></div>`
     )
+    const comentario = document.getElementById('comentario')
+    comentario.addEventListener('input', (e) => {
+      if(e.target.value.length > 0) {
+        document.getElementById('btn_aceptar').disabled = false
+      }
+    })
   }
 }
 
+function no_pude(e) {
+  $('.btn-subir-detalle').attr('data-clave','no_pude')  
+}
 function dentrofuera(input) {
   const id = input.getAttribute('id')
 
   if(id === 'dentro'){
     document.getElementById('fuera').checked = false
-  // document.querySelector('#'+id).value = dentrofuera
     $('.btn-subir-detalle').attr('data-clave', 'dentro')
   } 
   if(id === 'fuera'){
@@ -132,12 +143,6 @@ function dentrofuera(input) {
     $('.btn-subir-detalle').attr('data-clave','fuera')  
   } 
   document.getElementById('btn_aceptar').disabled = false
-  // btn.disabled=  false
-  // btn.prop('disabled', false)
-  // if(id === 'dentro'){
-  //   $('.btn-subir-detalle').attr('data-clave') = 'dentro'
-  // } 
-
 }
 
 function seleccionar(id_usuario_a_elegir, requerimiento_id, oportunidad_negocio_id) {
@@ -166,7 +171,6 @@ function deseleccionar(id_usuario_a_deseleccionar, requerimiento_id, oportunidad
     dataType: 'json',
   }).done(function(response){
    
-      console.log('Deseleccionado')
       toastr[response.response_type](
         'Se ha elegido a este usuario para que se encargue de tu requerimmiento'
       )
@@ -202,22 +206,22 @@ function subirdetalle(requerimiento_id, divencuesta, controles, modal, div) {
   console.log('CLAVE:', clave)
   console.log('ESTATUS', estatus)
 
-  // fetch(`${base_url()}app/requirements/eselegido`, {
-  //   method: 'post',
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({ requerimiento_id, estatus, comentario }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     console.log('si llego')
-  //     console.log(res)
-  //     if (res.res) {
-  //       toastr[res.response_type](res.message)
-  //     }
-  //   })
+  fetch(`${base_url()}app/requirements/eselegido`, {
+    method: 'post',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ requerimiento_id, estatus, comentario }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('si llego')
+      console.log(res)
+      if (res.res) {
+        toastr[res.response_type](res.message)
+      }
+    })
 
 
     closeModal(modal,div)
@@ -268,10 +272,8 @@ function subirdetalle(requerimiento_id, divencuesta, controles, modal, div) {
   // } )
 }
 
-function openmodal(modal) {
-  // const myModal = new bootstrap.Modal(document.getElementById(modal.id))
-  // $(btn).prop('disabled', true)
-//  const modal  =  document.getElementById('que')
+function openmodal() {
+
 if(  document.getElementById('fuera') ||  
   document.getElementById('dentro') ){
     if(document.getElementById('fuera').checked || document.getElementById('dentro').checked ){
@@ -279,29 +281,22 @@ if(  document.getElementById('fuera') ||
     }
     else{
       document.getElementById('btn_aceptar').disabled = true
-      // document.getElementById('encuesta').innerHTML = ""
     }
-
 }
 else{
   document.getElementById('btn_aceptar').disabled = true
 }
-
-  $('#que').modal('show')
+  $('#modal_encuesta').modal('show')
 }
-function closeModal(modal,div){
-  console.log(div)
-  alert('AQUI ')
-
-  console.log(modal)
+function closeModal(){
   document.getElementById('fuera').checked = false
   document.getElementById('dentro').checked = false
-  div.innerHTML = ''
+  document.getElementById('encuesta').innerHTML = ''
 }
 
-function opencalif(asd, modal) {
-  const myModal = new bootstrap.Modal(document.getElementById(modal.id))
-  myModal.show()
+function opencalif() {
+  $('#modal_calificaciones').modal('show')
+  
 }
 
 function openseguimiento(modal, req_id, div) {
@@ -360,7 +355,6 @@ function noleido(id) {
 }
 
 function contacto(div) {
-  console.log(div)
 if(  div.style.display === 'none'){
 
   $(div).css({ display: '' })
@@ -495,6 +489,8 @@ function validarencuesta(id_req) {
   }
 }
 
-
-
+ function handleCancelar(){
+  document.getElementById('encuesta').innerHTML = ''
+document.getElementById('btn_aceptar').disabled = true
+ }
 

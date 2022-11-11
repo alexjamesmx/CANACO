@@ -151,17 +151,17 @@ class Myaccount extends CI_Controller
             $data['permiso_id'] = $this->permiso_id;
             $data['tipos_actividad'] = $arr_data_actividades_tipos;
             //estilos de terceros
-            $data['styles'][] = 'vendor/component-custom-switch.min';
+            // $data['styles'][] = 'vendor/component-custom-switch.min';
             $data['styles'][] = '../../admin/percircle/percircle';
-            $data['styles'][] = 'vendor/select2.min';
-            $data['styles'][] = 'vendor/select2-bootstrap.min';
-            $data['styles'][] = 'vendor/bootstrap-tagsinput';
+            // $data['styles'][] = 'vendor/select2.min';
+            // $data['styles'][] = 'vendor/select2-bootstrap.min';
+            // $data['styles'][] = 'vendor/bootstrap-tagsinput';
             $data['styles'][] = 'vendor/smart_wizard.min';
             //scripts de terceros
-            $data['scripts'][] = 'vendor/datatables.min';
+            // $data['scripts'][] = 'vendor/datatables.min';
             $data['scripts'][] = 'vendor/jquery.mask.min';
-            $data['scripts'][] = 'vendor/select2.full';
-            $data['scripts'][] = 'vendor/bootstrap-tagsinput.min';
+            // $data['scripts'][] = 'vendor/select2.full';
+            // $data['scripts'][] = 'vendor/bootstrap-tagsinput.min';
             $data['scripts'][] = 'vendor/jquery.smartWizard.min';
             $data['scripts'][] = '../../admin/percircle/percircle';
             //mis scripts
@@ -183,18 +183,18 @@ class Myaccount extends CI_Controller
             $data['insigniaU'] = $this->recompensas_model->insignia_user($this->usuario_id);
 
 
-
-            //ALEX_NOTA
-
             $data['medallaU'] = $this->recompensas_model->medallas_user($this->usuario_id);
             $data['circulo_data'] = $procentaje;
             $data['account_data_n'] = $this->prueba_model_f->get_comers($this->usuario_id);
+
+            //SECCIONES Y ENCABEZADOS-----------------------------------------------------------------------------
             $data['_APP_TITLE'] = $module_data->nombre_mod . ' - ' . $section_data->nombre_sec;
             $data['_APP_VIEW_NAME'] = $section_data->ico_sec . ' ' . $section_data->nombre_sec;
             $data['_APP_VIDEO_SUPPORT'] = 'https://www.youtube.com/embed/tgbNymZ7vqY';
             $data['_APP_TITLE_SUPPORT'] = "<i class=\"iconsminds-support\"></i> " .  $section_data->nombre_sec;
             $data['_APP_MENU'] = get_role_menu($this->rol_id,  $module_data->modulo_id,  $section_data->seccion_id);
             $data['_APP_NAV'] = $this->load->view('app/private/fragments/nav/main_nav', $data, true);
+            //------------------------------------------------------------------------------------------------------
             $data['_APP_MEDALLA'] = $this->load->view('app/private/fragments/modules/config/medallas_m', $data, true);
             $data['_APP_INSIGNIA'] = $this->load->view('app/private/fragments/modules/config/insignia_m', $data, true);
             $data['_APP_VIEW_MENU'] = $this->load->view('app/private/fragments/menu/main_menu', $data, true);

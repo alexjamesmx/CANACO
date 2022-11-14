@@ -469,7 +469,6 @@ function validarencuesta(id_req) {
   ) {
     toastr.warning('Por favor llena todos los campos')
   } else {
-    // alert('subir')
     $.ajax({
       url: `${base_url()}app/requirements/subir_encuestas`,
       type: 'post',
@@ -489,8 +488,11 @@ function validarencuesta(id_req) {
   }
 }
 
+//RESETEAMOS VALORES DEL MODAL "FINALIZAR" AL DAR CLICK AL BOTON CANCELAR
  function handleCancelar(){
   document.getElementById('encuesta').innerHTML = ''
-document.getElementById('btn_aceptar').disabled = true
+  document.getElementById('btn_aceptar').disabled = true
+  document.getElementById('nopude').checked = false
+  document.getElementById('sipude').checked = false
  }
 

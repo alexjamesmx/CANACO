@@ -238,7 +238,7 @@ class Reg_user extends CI_Model
         // );
 
 
-        $query = $this->db->query("SELECT requerimientos.*, oportunidades_negocio.*, comercios.*, estatus_req.opnegocio_id as 'estatus_req_opnegocio_id', estatus_req.estatus as 'estatus_req_estatus', estatus_req.fecha as 'estatus_req_fecha', estatus_req.requerimiento_id as 'estatus_req_requerimiento_id', usuarios.* from requerimientos   JOIN oportunidades_negocio on oportunidades_negocio.requerimiento_id = requerimientos.req_id JOIN comercios on comercios.negocio_id = oportunidades_negocio.comercio_id JOIN estatus_req ON estatus_req.opnegocio_id = oportunidades_negocio.opneg_id AND estatus_req.requerimiento_id = requerimientos.req_id JOIN usuarios on usuarios.usuario_id = requerimientos.usuario_id 
+        $query = $this->db->query("SELECT requerimientos.*, oportunidades_negocio.*, comercios.*, estatus_req.opnegocio_id as 'estatus_req_opnegocio_id', estatus_req.estatus as 'estatus_req_estatus', estatus_req.fecha as 'estatus_req_fecha', estatus_req.requerimiento_id as 'estatus_req_requerimiento_id', usuarios.*,c2.* from requerimientos   JOIN oportunidades_negocio on oportunidades_negocio.requerimiento_id = requerimientos.req_id JOIN comercios on comercios.negocio_id = oportunidades_negocio.comercio_id JOIN estatus_req ON estatus_req.opnegocio_id = oportunidades_negocio.opneg_id AND estatus_req.requerimiento_id = requerimientos.req_id JOIN usuarios on usuarios.usuario_id = requerimientos.usuario_id JOIN comercios as c2 on c2.usuario_id = requerimientos.usuario_id
          AND oportunidades_negocio.comercio_id='" . $idcom . "' 
         ORDER BY req_id desc limit 5 offset " . $off . "");
 

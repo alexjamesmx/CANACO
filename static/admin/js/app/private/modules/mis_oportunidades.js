@@ -1,3 +1,12 @@
+let inputavalue2 = 0
+let inputa2= 0 
+let inputbvalue2 = 0
+let inputb2 = 0
+let inputcvalue2 = 0
+let inputc2 = 0
+let inputdvalue2 = 0
+let inputd2 = 0
+
 
 function divmagico() {
       const misdatos = JSON.parse($('#info').val())
@@ -122,6 +131,87 @@ function divmagico() {
   }
 
   function modal_abrir() {
-    $('#modal_examen').modal('show'); 
- 
+    $('#modal_examen').modal('show');  
   }
+
+
+  function validarencuestaDd() {
+    inputd2 = document.getElementsByName('dd')
+    for (let index = 0; index < inputd2.length; index++) {
+      if (inputd2[index].checked) {
+        inputdvalue2 = inputd2[index].value
+      }
+    }
+    console.log('inputdvalue :', inputdvalue2)
+  }
+  
+
+
+function validarencuestaAa() {
+  inputa2 = document.getElementsByName('aa')
+  for (let index = 0; index < inputa2.length; index++) {
+    if (inputa2[index].checked) {
+      inputavalue2 = inputa2[index].value
+    }
+  }
+  console.log('inputavalue2 :', inputavalue2)
+}
+
+function validarencuestaBb() {
+  inputb2 = document.getElementsByName('bb')
+  for (let index = 0; index < inputb2.length; index++) {
+    if (inputb2[index].checked) {
+      inputbvalue2 = inputb2[index].value
+    }
+  }
+  console.log('inputbvalue2 :', inputbvalue2)
+}
+
+function validarencuestaCc() {
+  inputc2 = document.getElementsByName('cc')
+  for (let index = 0; index < inputc2.length; index++) {
+    if (inputc2[index].checked) {
+      inputcvalue2 = inputc2[index].value
+    }
+  }
+  console.log('inputcvalue2 :', inputcvalue2)
+}
+
+function validarencuesta2(id_req, id_op) {
+  const comentario = document.getElementById('ff1').value
+  console.log(
+    'console ',
+    inputavalue2,
+    ' ',
+    inputbvalue2,
+    ' ',
+    inputcvalue2,
+    ' ',
+    inputdvalue2
+  )
+  if (
+    inputavalue2 !== 0 &&
+    inputbvalue2 !== 0 &&
+    inputcvalue2 !== 0 &&
+    inputdvalue2 !== 0
+  ) {
+    $.ajax({
+      url: `${base_url()}app/requirements/subir_encuestas_op`,
+      type: 'post',
+      data: {
+        id_req,
+        id_op,
+        p1: inputavalue2,
+        p2: inputbvalue2,
+        p3: inputcvalue2,
+        p4: inputdvalue2,
+        comentario,
+      },
+      success() {
+        toastr.success('Gracias por evaluar esta oportunidad')
+        window.location.reload()
+      },
+    })
+  }
+  console.log('no pasa')
+}

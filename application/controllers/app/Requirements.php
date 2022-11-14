@@ -263,22 +263,27 @@ class Requirements extends CI_Controller
 
     public function tablareq_todos()
     {
-
+        $array1 = [];
+        $array2 = [];
+        //OBENTER MIS REQUERIMIENTOS 
         $data['mis_requerimientos'] = $this->Requerimiento_model->get_mis_requerimientos($this->usuario_id);
-        print_r($data['mis_requerimientos']);
+        // print_r($data['mis_requerimientos']);
 
+        //
         $array1 = $this->Requerimiento_model->get_interesados(
             $this->usuario_id
         );
-
-        $array2 = $this->Requerimiento_model->get_interesados_activos(
-            $this->usuario_id
-        );
+        if (count($array1) === 0) {
+            $array2 = $this->Requerimiento_model->get_interesados_activos(
+                $this->usuario_id
+            );
+        }
 
         $data['requerimientos'] = array_merge(
             $array1,
             $array2
         );
+
 
         if ($data['requerimientos']) {
             $this->load->view('app/private/components/tablareq', $data);

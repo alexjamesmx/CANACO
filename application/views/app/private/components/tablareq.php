@@ -155,7 +155,7 @@
                                                 Califica
                                             </button>
                                         <?php } else  if ($req_calf_status == 1) { ?>
-                                            <h5 class="text-center" style="align-self:center;"><i class="fas fa-check"></i><br>Evaluado, calificación: <?= $requerimiento->promedio ?> </h5>
+                                            <h5 class="text-center" style="align-self:center;"><i class="fas fa-check"></i><br>Evaluado, calificación: <?= $promedio ?> </h5>
                                         </div>
                                     <?php } ?>
                                     </div>
@@ -164,7 +164,7 @@
                     <?php } else { ?>
                         <td data-title="Acciones" style="height:100%;text-align:center;">
                             <div class="btn-group" id="<?= $controles ?>" style="height:100%;align-items:center;">
-                                <button style='height:fit-content;border-radius:12px;' class="btn btn-dark default btn-default" onclick="openseguimiento(<?= $modalseguimiento ?>,<?= $requerimiento->req_id ?>,<?= $detalles ?>)">
+                                <button style='height:fit-content;border-radius:12px;' class="btn btn-dark default btn-default" onclick="openseguimiento(<?= $modalseguimiento ?>,<?= $req_id ?>,<?= $detalles ?>)">
                                     <i class="fas fa-arrow-circle-right"></i>
                                     <br>
                                     Seguimiento
@@ -174,7 +174,7 @@
                                     <br>
                                     Finalizar
                                 </button>
-                                <button style='height:fit-content;border-radius:12px;' role="link" onclick="republicar(<?= $requerimiento->req_id ?>)" class="btn btn-primary default btn-default">
+                                <button style='height:fit-content;border-radius:12px;' role="link" onclick="republicar(<?= $req_id ?>)" class="btn btn-primary default btn-default">
                                     <i class="fas fa-comment"></i>
                                     <br>
                                     Republicar

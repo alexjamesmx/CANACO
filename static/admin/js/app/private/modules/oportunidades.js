@@ -391,11 +391,10 @@ function rechazar(cliente_id, opnegocio_id, controls, estatus, rechaza) {
   })
 }
 function modalacepta(modal) {
-  const myModal = document.getElementById('modal_abrir')
+  const myModal = new bootstrap.Modal(document.getElementById(modal.id))
   myModal.show()
 }
 function modalbi(modal) {
-  const myModal = new bootstrap.Modal(document.getElementById(modal.id))
   myModal.show()
 }
 function modalrechazar(modal) {
@@ -471,14 +470,14 @@ function showcoti(id) {
   document.getElementById(id.id).setAttribute('style', 'display: flex')
 }
 
-let inputavalue2 = 0
-let inputa2
-let inputbvalue2 = 0
-let inputb2
-let inputcvalue2 = 0
-let inputc2
-let inputdvalue2 = 0
-let inputd2
+var inputavalue2 = 0
+var inputa2= 0 
+var inputbvalue2 = 0
+var inputb2 = 0
+var inputcvalue2 = 0
+var inputc2 = 0
+var inputdvalue2 = 0
+var inputd2 = 0
 
 function validarencuestaAa() {
   inputa2 = document.getElementsByName('aa')

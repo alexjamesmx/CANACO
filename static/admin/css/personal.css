@@ -217,3 +217,72 @@ justify-content: space-between;
   margin: 0;
   padding: 0;
 }
+ 
+.modal_examen{
+width: 80%;
+min-width: fit-content;
+margin: auto;
+} 
+
+.modal_examen_header{
+  background-color: #343a40;
+border-radius: 12px 12px 0 0;
+}
+.modal_examen_content{
+  height: 85%;margin: auto;border-radius: 12px !important
+}
+
+
+
+.scroller {
+  width: 300px;
+  height: 100px;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+}
+
+
+/* Works on Firefox */
+/* * {
+  scrollbar-gutter: stable;
+  scrollbar-width:10px;
+  scrollbar-color: #576a3d  rgb(172, 172, 172);
+} */
+
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  height: 2em;
+}
+
+*::-webkit-scrollbar-track {
+  width: 10px;
+  height: 10px;
+  background: rgb(172, 172, 172);
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: #576a3d;
+  border-radius: 20px;
+  border: 3px solid #576a3d 0 0 0;
+  /* height: 10px; */
+}
+
+.pregunta_examen{
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+.respuestas_examen{
+  font-size: 0.9rem;
+  margin: 0 0 0 0;
+}
+ .examen_input{
+  accent-color: #576a3d;
+}
+
+ 
+

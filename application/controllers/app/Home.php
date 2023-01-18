@@ -31,7 +31,7 @@ class Home extends CI_Controller
             1
         );
 
-        $data['_APP_TITLE'] = 'Home';
+        $data['_APP_TITLE'] = '';
         $data['_APP_VIEW_NAME'] = 'Inicio';
         $data['_APP_MENU'] = get_role_menu($this->rol_id, 1);
 
@@ -45,7 +45,7 @@ class Home extends CI_Controller
             $data,
             true
         );
-        $data['_APP_BREADCRUMBS'] = ['Inicio'];
+        $data['_APP_BREADCRUMBS'] = [''];
         //Si eres de Presidencia este es tu sección
         if ($this->rol_id == 1) {
             $data['scripts'][] = 'app/private/modules/home_presidencia';
@@ -89,6 +89,7 @@ class Home extends CI_Controller
             );
             $data['scripts'][] = 'app/private/modules/showafilporvalidarse';
             $data['scripts'][] = 'app/private/modules/modales_validarafil';
+            $data['scripts'][] = 'chart/package/dist/chart';
             $data['scripts'][] = 'app/private/modules/home_contaduria';
             $data['_APP_FRAGMENT'] = $this->load->view(
                 'app/private/fragments/modules/home_contabilidad_f',

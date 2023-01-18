@@ -448,13 +448,12 @@ class Files extends CI_Controller
         }
     }
 
-    public function subirCotizacion($oportunidad)
+    public function subirCotizacion()
     {
+        $id = $this->input->post('id');
         $this->permiso_id  = get_role_permission($this->estatus_id, $this->rol_id, 'seccion', $seccion_id = 3, $finish = FALSE);
-        json_header();
-        $this->input->post('s');
         $hoy = date("YmdHis");
-        $nuevoNombreImg = "cotizacion" . $hoy . $oportunidad;
+        $nuevoNombreImg = "cotizacion" . $hoy . $id;
         $config['file_name'] = strtolower($nuevoNombreImg);
         $config['upload_path'] = 'static/uploads/cotizaciones/';
         $config['allowed_types'] = 'pdf';
@@ -462,35 +461,25 @@ class Files extends CI_Controller
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('cotizacion')) {
             $data['errorArch'] = $this->upload->display_errors();
-            $d4 =  array(
-                "response_code" => 400,
-                "response_type" => 'error',
-                "message" => "Problemas al subir documento",
-            );
         } else {
             $file_info = $this->upload->data();
             $archivo = $file_info['file_name'];
             $data = array(
                 'cotizacion_opng' => $archivo,
             );
-            if ($subir = $this->Oportunidades_negocio_model->cotizacion($data, $oportunidad)) {
-                $d4 =  array(
-                    "response_code" => 200,
-                    "response_type" => 'success',
-                    "message" => "Negocio actualizado satisfactoriamente",
-                );
+            $subir = $this->Oportunidades_negocio_model->cotizacion($data, $id);
+            if ($subir) {
                 $id_cliente = $this->input->post('id_cliente');
                 $opnegocio_id = $this->input->post('opnegocio_id');
-                $id_req = $this->Reg_user->get_estatus_req($opnegocio_id);
-                $mail = $this->Reg_user->get_name($id_cliente); //cambio por $this->usuarios_id
-                $info = $this->Mensaje_model->info_req($opnegocio_id);
-                $req_id = $info[0]->requerimiento_id;
-                $id_cliente = $info[0]->comercio_id;
+                $mail = $this->Reg_user->get_name($this->session->userdata('usuario_id')); //cambio por 
+                $info = $this->Mensaje_model->informacion_oportunidad($opnegocio_id);
+                $req_id = $info[0]["requerimiento_id"];
+                $id_cliente = $info[0]["comercio_id"];
                 $fecha = date("YmdHis");
                 $this->Mensaje_model->agregar_detalle($req_id, $id_cliente, $fecha);
                 $this->Reg_user->update_opnegocio($opnegocio_id, '18'); //debe estar 18
-                $doc = $info[0]->cotizacion_opng;
-                $email = $mail[0]->email_auth;
+                $doc = $info[0]["cotizacion_opng"];
+                $email = $mail[0]["email_auth"];
                 $data_mail = $this->Notificacion_model->get_notificacion("14"); //traer la informacion de la notificacion correspondiente
                 $this->load->view('app/private/components/noti', $data_mail);
                 if (isset($doc)) {
@@ -505,9 +494,9 @@ class Files extends CI_Controller
                     $html = ($this->load->view('app/private/components/noti', $data_mail, true)), //Cuerpo (puede ser una vista) 
                     $attach = $atach //adjunto
                 );
+                echo 'cotizacion subida';
             }
         }
-        redirect(base_url('app/mis_oportunidades/misoportunidades/'), 'refresh');
     }
 
     public function subirRecibo()

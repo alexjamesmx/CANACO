@@ -224,7 +224,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style=" background-color: #343a40;">
-                                <h5 class="modal-title text-white" id="exampleModalLabel">¿Por qué quieres desactivar el requerimiento</h5>
+                                <h5 class="modal-title text-white" id="exampleModalLabel">¿Por qué quieres finalizar el requerimiento?</h5>
                                 <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -235,28 +235,26 @@
                                 </button>
                                 <div class="m-12" id="div_modal">
                                     <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label d-block">
-                                                Pude resolver mi requerimiento:
-                                            </label>
-                                            <div class="form-check form-check-inline">
-                                                <div class="mb-0">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="sipude" value="0" id="sipude" onclick="encuesta('0',<?= $inout ?>)">
-                                                        <label class="form-check-label" for="p-fisica">
-                                                            Si
-                                                        </label>
-                                                    </div>
+                                        <label class="form-label d-block respuestas_examen mb-2">
+                                            Pude resolver mi requerimiento:
+                                        </label>
+                                        <div class="form-check form-check-inline">
+                                            <div class="mb-0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input canaco_input" type="radio" name="sipude" value="0" id="sipude" onclick="encuesta('0',<?= $inout ?>)">
+                                                    <label class="form-check-label respuestas_examen" for="p-fisica">
+                                                        Si
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <div class="mb-0">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" value="1" name="sipude" id="nopude" onclick="encuesta('1',<? $inout ?>)">
-                                                        <label class="form-check-label" for="p-moral">
-                                                            No
-                                                        </label>
-                                                    </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="mb-0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input canaco_input" type="radio" value="1" name="sipude" id="nopude" onclick="encuesta('1',<? $inout ?>)">
+                                                    <label class="form-check-label respuestas_examen" for="p-moral">
+                                                        No
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -265,14 +263,14 @@
                                 <div class="col-md-12">
                                     <div class="mb-3 alex">
                                         <div id="encuesta">
-                                        </div> <!-- fin divsino -->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <input type="hidden" id="<?= $inout ?>" name="<?= $inout ?>" value="" />
-                            <div class="modal-footer">
-                                <button onclick="handleCancelar()" type="button" class="btn btn-danger default btn-default" data-dismiss="modal">Cancelar</button>
-                                <button data-clave='null' type="button" id="btn_aceptar" onclick="subirdetalle(<?= $req_id ?> , <?= $controles ?>, <?= $modalinteres ?>,<?= $listainteres ?>)" class="btn-subir-detalle btn btn-primary default btn-default" data-dismiss="modal">Aceptar</button>
+                                <input type="hidden" id="<?= $inout ?>" name="<?= $inout ?>" value="" />
+                                <div class="d-flex justify-content-end">
+                                    <button onclick="handleCancelar()" type="button" class="btn btn-danger default btn-default mr-3 border-btn" data-dismiss="modal">Cancelar</button>
+                                    <button data-clave='null' type="button" id="btn_aceptar" onclick="subirdetalle(<?= $req_id ?> , <?= $controles ?>, <?= $modalinteres ?>,<?= $listainteres ?>)" class="btn-subir-detalle btn btn-primary default btn-default border-btn" data-dismiss="modal">Aceptar</button>
+                                </div>
                             </div>
                         </div>
                     </div>

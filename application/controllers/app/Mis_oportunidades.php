@@ -137,6 +137,7 @@ class Mis_oportunidades extends CI_Controller
             $mi_comercio_id = $mi_comercio[0]->negocio_id;
             $data['mi_id'] = $this->usuario_id;
             $data['mis_requerimientos'] = $this->Reg_user->get_mis_requerimientos_pagina($mi_comercio_id, $page);
+            $data['mi_comercio'] = $mi_comercio;
             $this->load->view('app/private/components/tablaops', $data);
         } else {
             echo '
@@ -193,7 +194,6 @@ class Mis_oportunidades extends CI_Controller
         $micom = $this->Reg_user->get_comername($this->usuario_id);
         $idcom = $micom[0]->negocio_id;
         $myopn = $this->Reg_user->get_myop_number($idcom);
-
         echo json_encode($myopn);
     }
 

@@ -138,9 +138,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    Actividad
-                                                    <br>
-                                                    económica
+                                                    Actividad económica
                                                 </th>
                                                 <th colspan="">
                                                     Palabras clave

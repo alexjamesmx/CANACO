@@ -71,7 +71,7 @@ class Requerimiento_model extends CI_Model
     public function get_nomatch($id)
     {
         $query = $this->db->query(
-            "SELECT * FROM nomatch WHERE status='1' AND  usuario_id NOT IN ('" . $id . "') ORDER BY date_nomatch desc limit 10"
+            "SELECT * FROM nomatch_view WHERE pasan_dias < 8 AND  usuario_id NOT IN ('" . $id . "') ORDER BY date_nomatch desc limit 10"
         );
         return $query->num_rows() >= 1 ? $query->result() : null;
     }
@@ -379,7 +379,7 @@ class Requerimiento_model extends CI_Model
         );
         return $query->num_rows() >= 1 ? $query->result() : null;
     }
-    public function delete_requerimiento($data)
+    public function finalizar($data)
     {
         return
             $this->db

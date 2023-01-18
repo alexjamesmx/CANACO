@@ -97,11 +97,11 @@ class Validaciones extends CI_Controller
     }
     //COMERCIO SI TIENE VALORACION DINAMICA
     else {
-      $bandera_datos_negocio = 15;
-      $bandera_documentos = 20;
-      $bandera_cv = 10;
-      $bandera_afiliacion = 10;
-      $bandera_datos_usuario = 15;
+      $bandera_datos_negocio = 25;
+      $bandera_documentos = 10;
+      $bandera_cv = 5;
+      $bandera_afiliacion = 4;
+      $bandera_datos_usuario = 26;
       $bandera_keywords = 30;
 
       //eliminar para tractoras
@@ -121,6 +121,8 @@ class Validaciones extends CI_Controller
       if (is_null($data->nombre)  || $data->nombre == "") {
         $bandera_datos_usuario = 0;
       } else if (is_null($data->email_auth) || $data->email_auth == "") {
+        $bandera_datos_usuario = 0;
+      } else if (is_null($data->telefono_auth) || $data->telefono_auth == "") {
         $bandera_datos_usuario = 0;
       }
     }
@@ -194,7 +196,7 @@ class Validaciones extends CI_Controller
       "porcentaje"     => $all,
     );
     if ($this->Validacion_model->insert_porcentaje($this->usuario_id, $arr_update)) {
-      if ($all >= 70) {
+      if ($all >= 80) {
 
         // aqui valido mi bandera para mandar correo
         if ($this->Validacion_model->validar_bandera($this->usuario_id)) {
@@ -245,6 +247,12 @@ class Validaciones extends CI_Controller
       "response_code" => 200,
       "response_type" => 'success',
       "message" => $all,
+      "bandera_datos_negocio" => $bandera_datos_negocio,
+      "bandera_documentos" => $bandera_documentos,
+      "bandera_cv" => $bandera_cv,
+      "bandera_afiliacion" => $bandera_afiliacion,
+      "bandera_datos_usuario" => $bandera_datos_usuario,
+      "bandera_keywords" => $bandera_keywords,
       "bandera_modal" => $bandera_modal,
     );
     echo json_encode($d);

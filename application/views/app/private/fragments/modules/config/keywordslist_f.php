@@ -6,18 +6,18 @@ $arr_tipo_actividad = array(
 );
 if(isset($actividades)){
     foreach($actividades as $row) : ?>
-        <tr>
+        <tr style="cursor: default;">
             <td>
                 <em>
-                    <strong>
+                    <h4>
                         <u> Actividad:</u>
-                    </strong>
+                    </h4>
                 </em>
 
-                <strong>
+                <h3>
                     <br>
                     <?=$row->actividad?>
-                </strong>
+                </h3>
 
                 <strong class="text-muted mt-1">
                     <br>
@@ -34,7 +34,7 @@ if(isset($actividades)){
                         <?php if(isset($row->keywords) && $row->keywords != NULL){ ?>
 
                             <?php foreach($row->keywords as $rk) : ?>
-                                <span class="badge badge-primary m-1" style="font-size: 1.1em !important; display: inline-block;">
+                                <span class="badge badge-info m-1" style="font-size: 1.1em !important; display: inline-block;">
                                     <i class="fas fa-hashtag fa-xs"></i>
                                     <?=$rk->keyword?>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,15 +54,17 @@ if(isset($actividades)){
                     <!-- Productos y servicios -->
                     <div class="col-8 mt-5">
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-dark btn-editservice"
+                            <button class="btn btn-sm btn-primary btn-editservice"
+                            data-toggle="tooltip" data-placement="top" title="Agregar nueva palabra clave"
                             data-act="<?=$row->tipoactividad_id?>" data-trans="<?=$row->tipo_transaccion?>">
                             <i class="fas fa-plus"></i>
-                            Agregar palabras clave
+                            Agregar
                         </button>
                         <button class="btn btn-sm btn-danger btn-delservice"
+                        data-toggle="tooltip" data-placement="top" title="Eliminar palabra clave"
                         data-act="<?=$row->tipoactividad_id?>" data-trans="<?=$row->tipo_transaccion?>">
                         <i class="fas fa-trash"></i> 
-                        Eliminar actividad económica y sus palabras clave
+                        Eliminar
                     </button>
                 </div>
             </div>

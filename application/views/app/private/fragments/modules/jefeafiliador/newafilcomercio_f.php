@@ -138,7 +138,6 @@
                                             <tr>
                                                 <th>
                                                     Actividad
-                                                    <br>
                                                     económica
                                                 </th>
                                                 <th colspan="">

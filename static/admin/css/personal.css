@@ -53,57 +53,6 @@
   z-index: 12;
   left: 20%;
 }
-/* .custom_marquee {
-  height: 50px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-}
-.custom_marquee h4 {
-  white-space: nowrap;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  line-height: 50px;
-  text-align: left;
-  -moz-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-  -moz-animation: custom_marquee 25s linear infinite;
-  -webkit-animation: custom_marquee 25s linear infinite;
-  animation: custom_marquee 25s linear infinite;
-}
-@-moz-keyframes custom_marquee {
-  0% {
-    -moz-transform: translateX(100%);
-  }
-  100% {
-    -moz-transform: translateX(-100%);
-  }
-}
-@-webkit-keyframes custom_marquee {
-  0% {
-    -webkit-transform: translateX(100%);
-  }
-  100% {
-    -webkit-transform: translateX(-100%);
-  }
-}
-@keyframes custom_marquee {
-  0% {
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-  100% {
-    -moz-transform: translateX(-100%);
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-} */
-
 .modal_perfil_logo {
   width: 150px;
   object-fit: cover;
@@ -134,18 +83,30 @@
 }
 
 .modal_perfil_div {
-  text-align: center;
+  text-align: start;
   height: 50%;
 }
 .modal_perfil_div_text{
   font-size: 1.2rem;
   font-weight: 600;
 }
+.modal_perfil_div_text_small{
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
 #modal_text_negocio_nombre{
   background: linear-gradient(90deg, rgba(14,0,255,0.118886390493695) 0%, rgba(3,3,200,0.118886390493695) 28%, rgba(0,212,255,0.1163866230085784) 100%);
 font-size: 1.2rem;
 }
-
+.whatsapp{
+  width: fit-content;
+  text-align: end;
+  justify-self: end;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
 
 .card-title-custom{
   font-weight: 500;
@@ -171,13 +132,9 @@ font-size: 1.2rem;
   background: linear-gradient(0deg, rgba(253, 111, 7, 0.34) 0%, rgba(255, 129, 37, 0.38) 100%);
   border-radius: 12px;
 }
-/* .card-custom-shadow{
-  box-shadow: 0 0 5px #0000008f;
-} */
-
 
 .myaccount-img {
-  -webkit-transform: scale(1);
+  -webkit-transform: scale(1) ;
   transform: scale(1);
   -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
@@ -185,14 +142,11 @@ font-size: 1.2rem;
 
 }
 
-
 .myaccount-img:hover {
   cursor: pointer;
   opacity: 0.3;
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
-
-  
 }
 .profile-img-eye {
   opacity: 1;
@@ -280,9 +234,68 @@ border-radius: 12px 12px 0 0;
   font-size: 0.9rem;
   margin: 0 0 0 0;
 }
- .examen_input{
+ .canaco_input{
   accent-color: #576a3d;
 }
+.modal-content{
+  border-radius: 12px !important;
+}
+.modal-content > .modal-header{
+  border-radius: 12px 12px 0 0 !important
+}
+.border-btn{
+  border-radius: 6px !important;
+}
 
- 
+
+
+@keyframes spin {
+  to { transform: rotate(360deg)}
+}
+
+.loader{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50% - 32px);
+  top: calc(50% - 32px);
+
+
+  border-top: 8px solid rgba(66, 66, 66,1);
+  border-left:8px solid rgba(66,66,66,1);
+  border-right:8px solid rgba(255,255,255,0);
+  animation: spin 0.575s infinite linear
+
+}
+
+
+#marquee_h4 .marquee_element:not(:last-child):after{
+  content: "";
+  background: black;
+  width: 3px;
+  height: 3px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-inline: 0.5rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+
+body #modal_nomatch_title{
+  align-self: center;width: 100%;text-align: center;
+}
+
+body #nomatch_contacto{
+  grid-column: 1 / 4;
+  width: 100%;
+  display: flex;
+  opacity: 1;
+  justify-content: space-between;
+  align-items: center;
+  opacity:0
+}
+
 

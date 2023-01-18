@@ -40,7 +40,7 @@ class Admin_model extends CI_Model
     }
 
     public function nomatchs(){
-        $query= $this->db->query('SELECT *,keyword AS keyw, (SELECT COUNT(*) FROM nomatch WHERE nomatch.keyword=keyw)AS no_keys FROM nomatch where status="1" order by date_nomatch desc');
+        $query= $this->db->query('SELECT *,keyword AS keyw, (SELECT COUNT(*) FROM nomatch WHERE nomatch.keyword=keyw)AS no_keys, (SELECT DATEDIFF(NOW(),date_nomatch) FROM nomatch WHERE nomatch.keyword=keyw) AS pasan_dias FROM nomatch where status="1" order by date_nomatch desc ');
         return $query->num_rows() > 0 ? $query->result() : null;
     }
     public function listacomsafil(){

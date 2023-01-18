@@ -357,12 +357,13 @@ class User extends CI_Controller
         //USUARIO AL QUE SE LE APLICARA LA NOTIFICACION
         $id_cliente = $this->input->post('id_cliente');
         $opnegocio_id = $this->input->post('opnegocio_id');
+        $req_id = $this->input->post('req_id');
         $doc = $this->input->post('doc');
 
         //INFO DEL USUARIO AL QUE SE LE APLICARA LA NOTIFICACION
         $usuario = $this->Reg_user->get_name($id_cliente);
         //INFO DE LA OPORTUNIDAD NEGOCIO
-        $info = $this->Mensaje_model->info_req($opnegocio_id);
+        $info = $this->Mensaje_model->informacion_oportunidad($opnegocio_id);
 
         $req_id = $info[0]->requerimiento_id;
         $id_cliente = $info[0]->comercio_id;
@@ -372,7 +373,7 @@ class User extends CI_Controller
         //DETALLE Y ESTATUS DE MENSAJE
         $this->Mensaje_model->agregar_detalle($req_id, $id_cliente, $fecha);
         //ESTATUS 18 = Notificación aceptada con respuesta del candidato - ACEPTAR APLICACION
-        $this->Reg_user->update_opnegocio($opnegocio_id, '18');
+        $this->Reg_user->update_opnegocio($req_id, '18');
 
         $email = $usuario[0]['email_auth'];
         // //NOTIFICACION - Interés por tu requerimiento
@@ -401,24 +402,43 @@ class User extends CI_Controller
 
     public function cancelar()
     {
-        //$req_id= $this->input->post('req_id');
-        // $nombre=$this->Reg_user->get_comername("186"); //cambio por $this->usuarios_id
-        //$comercio=$nombre[0]->negocio_nombre;
+        //OBETNER POR POST
         $id_cliente = $this->input->post('id_cliente');
         $opnegocio_id = $this->input->post('opnegocio_id');
+        $req_id = $this->input->post('req_id');
         $queja = $this->input->post('queja');
 
-        $info = $this->Mensaje_model->info_req($opnegocio_id);
+        //OBTENEMOS INFO DE LA OPORTUNIDAD A CANCELAR
+        $informacion_oportunidad = $this->Mensaje_model->informacion_oportunidad($opnegocio_id);
+        //DEFAULT VALUES
+        $data['response'] = false;
+        $data['response_type'] = "error";
 
-        $req_id = $info[0]->requerimiento_id;
-        $id_cliente = $info[0]->comercio_id;
-        $fecha = date("YmdHis");
+        if ($informacion_oportunidad) {
+            $req_id = $informacion_oportunidad[0]->requerimiento_id;
+            $id_cliente = $informacion_oportunidad[0]->comercio_id;
+            $date = date("YmdHis");
+            //UPDATE ESTATUS => 19
+            $actualizo = $this->Mensaje_model->actualizar_mensaje_cancelado($queja, $opnegocio_id, $req_id, $id_cliente, $date);
+            $actualizo = $actualizo == 1 ? TRUE : FALSE;
+
+            $data['message'] = $actualizo ? 'Se actualizó el mensaje de cancelacion' : 'Error al actualizar mensaje de cancelación';
+            if ($actualizo) {
+                $data['response']       = $this->Reg_user->cancelar_requerimiento($req_id, "19"); //cambiar por '19' 
+                $data['response_type']  = $data['response']  ?  'success' : "error";
+                $data['message']        = $data['response'] ? $data['message']  . " y se actualizó el estatus a 19 (cancelación)" : "";
+            }
+        } else {
+            $data['message'] = 'No se pudo obtener información de la oportunidad';
+        }
+
+        // $mail = $this->Reg_user->get_name($id_cliente); //cambio por $this->usuarios_id
+
+        echo json_encode($data);
 
 
 
-        $this->Mensaje_model->actualizar_mensaje_cancelado($queja, $opnegocio_id, $req_id, $id_cliente, $fecha);
-        $mail = $this->Reg_user->get_name($id_cliente); //cambio por $this->usuarios_id
-        $this->Reg_user->update_opnegocio($opnegocio_id, "19"); //cambiar por '19' 
+
         /*
         $email=$mail[0]->email_auth;
         $data_mail=$this->Notificacion_model->get_notificacion("14"); //traer la informacion de la notificacion correspondiennte
@@ -428,11 +448,8 @@ class User extends CI_Controller
             $email, //destinatario rempplazar por $email
             $data_mail->titulo, //asunto
             $html = ($this->load->view('app/private/components/noti', $data_mail,true)),//Cuerpo (puede ser una vista) 
-            $attach = NULL //adjunto
-
-            
+            $attach = NULL //adjuntod  
         );
-
         */
     }
     public function rechazar()

@@ -33,10 +33,10 @@
                                     $src =  base_url('static/uploads/archivos/logo_default.png');
                                 } else {
                                     $src  = base_url('static/uploads/perfil/' . $negocio_logo);
-
+                                }
                                 ?>
-                                    <img id="negocio_logo" src="<?= $src ?>" alt="Logo del negocio" class="img-fluid d-block mx-auto m-0" style="max-height: 254px;margin:0 !important" loading="lazy">
-                                <?php } ?>
+                                <img id="negocio_logo" src="<?= $src ?>" alt="Logo del negocio" class="img-fluid d-block mx-auto m-0" style="max-height: 254px;margin:0 !important" loading="lazy">
+
                                 <h6 class='mb-2 mt-2 ml-2'>
                                     <strong class="d-block text-primary myaccount-img" style="cursor:pointer" onclick="requerimiento_imagen(<?= $usuario_id ?>)">
                                         <i class='fas fa-eye'></i>
@@ -213,8 +213,11 @@
                     </div>
                     <!-- BARRA DE COMPLETADO -->
                     <div class="col-sm-12 mb-5">
-                        <div class="progress" id="barra" style="height: 30px !important;">
-                            <div id="progreso" class="progress-bar font-weight-bold" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" data-value="0" aria-valuemax="100">
+                        <div id="barra" style="height: 30px !important;background-color: #bfbfbf;">
+                            <div class="" style="display: flex;height: inherit;position: absolute;">
+                                <p id="progreso_no" style="margin: 0;text-align: center;align-self: center;margin-left: 1.3rem;color: white;font-weight: bold;font-size: 1rem;"></p>
+                            </div>
+                            <div id="progreso" class="progress-bar font-weight-bold h-100" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" data-value="0" aria-valuemax="100">
                             </div>
                         </div>
                     </div>
@@ -268,7 +271,6 @@
                                                 <tr>
                                                     <th>
                                                         Actividad
-                                                        <br>
                                                         económica
                                                     </th>
                                                     <th colspan>
@@ -277,7 +279,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tbl-tbody-show-act-kw">
-                                                <tr>
+                                                <tr class="cursor_none">
                                                     <td colspan="5">
                                                         <p class="pt-3 text-center pb-5" style="width: 400px">
                                                             <i class="fas fa-spinner fa-pulse fa-5x text-muted"></i>
@@ -295,7 +297,7 @@
                     <div class="border">
                         <button id="titl-data-comercio" class="btn btn-link collapsed click-title btn-colapse-valor" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             <h2>Datos del comercio</h2>
-                            <h6 text-muted">Valor para tu perfil 15%</h6>
+                            <h6 text-muted">Valor para tu perfil 25%</h6>
                         </button>
                         <div id="collapseThree" class="collapse" data-parent="#accordion">
                             <div class="p-4">
@@ -308,7 +310,7 @@
                     <div class="border">
                         <button id="title-data-contacto" class="btn btn-link collapsed click-title btn-colapse-valor" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             <h2>Datos de contacto</h2>
-                            <h6 text-muted">Valor para tu perfil 15%</h6>
+                            <h6 text-muted">Valor para tu perfil 25%</h6>
                         </button>
                         <div id="collapseTwo" class="collapse" data-parent="#accordion">
                             <div class="p-4">
@@ -322,7 +324,7 @@
                             <h2>
                                 Curriculum del comercio
                             </h2>
-                            <h6 text-muted">Valor para tu perfil 10%</h6>
+                            <h6 text-muted">Valor para tu perfil 5%</h6>
                         </button>
                         <div id="collapseSeven" class="collapse" data-parent="#accordion">
                             <div class="p-4">
@@ -337,7 +339,7 @@
                                 <h2>
                                     Documentación del comercio
                                 </h2>
-                                <h6 text-muted">Valor para tu perfil 20%</h6>
+                                <h6 text-muted">Valor para tu perfil 10%</h6>
                             </button>
                             <div id="collapseSix" class="collapse" data-parent="#accordion">
                                 <div class="p-4">
@@ -350,7 +352,7 @@
                     <div class="border">
                         <button id="title-afil-comercio" class="btn btn-link collapsed click-title btn-colapse-valor" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                             <h2>Mi afiliación CANACO</h2>
-                            <h6 text-muted">Valor para tu perfil 10%</h6>
+                            <h6 text-muted">Valor para tu perfil 5%</h6>
                         </button>
                         <div id="collapseFive" class="collapse" data-parent="#accordion">
                             <div class="p-4">

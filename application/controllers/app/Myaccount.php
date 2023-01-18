@@ -161,7 +161,7 @@ class Myaccount extends CI_Controller
             // $data['scripts'][] = 'vendor/datatables.min';
             $data['scripts'][] = 'vendor/jquery.mask.min';
             // $data['scripts'][] = 'vendor/select2.full';
-            // $data['scripts'][] = 'vendor/bootstrap-tagsinput.min';
+            $data['scripts'][] = 'vendor/bootstrap-tagsinput.min';
             $data['scripts'][] = 'vendor/jquery.smartWizard.min';
             $data['scripts'][] = '../../admin/percircle/percircle';
             //mis scripts
@@ -169,11 +169,10 @@ class Myaccount extends CI_Controller
             $data['scripts'][] = 'app/private/modules/myaccount';
             $data['scripts'][] = 'app/private/modules/profilecomercio';
             $data['scripts'][] = 'app/private/modules/subir';
-            $data['scripts'][] = 'app/private/modules/validaciones';
+            // $data['scripts'][] = 'app/private/modules/validaciones';
             $data['scripts'][] = 'app/private/modules/modales';
             $data['scripts'][] = 'app/private/modules/afiliacion';
             $data['scripts'][] = 'app/private/modules/noti_menu';
-
 
             $data['modals'][] = $this->load->view('app/private/fragments/modules/config/addkeywords_m', $data, true);
             $data['account_data'] = $this->accounts_model->get_accounts("WHERE usuarios.estatus_id IN (3) AND usuario_id='" . $this->usuario_id . "'", 0, 0)[0];
@@ -207,11 +206,9 @@ class Myaccount extends CI_Controller
             $data['_APP_DATOS_PASS'] = $this->load->view('app/private/fragments/modules/config/datos_pass', $data, true);
             $data['_APP_FRAGMENT'] = $this->load->view('app/private/fragments/modules/config/micuentacomercio_f', $data, true);
 
-
-
             $this->load->view('app/private/main_view', $data, false);
-        } else if ($this->rol_id !== '2' && $this->rol_id !== '19') {
-            /*Cuenta estandar para los usuarios de canaco que NO SON COMERCIOS*/
+        }
+        /*Cuenta estandar para los usuarios de canaco que NO SON COMERCIOS*/ else if ($this->rol_id !== '2' && $this->rol_id !== '19') {
             $section_per_page = 20;
             $this->permiso_id = get_role_permission(
                 $this->estatus_id,

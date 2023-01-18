@@ -200,7 +200,7 @@ class Requirements extends CI_Controller
         }
         echo json_encode($exit);
     }
-    public function eselegido()
+    public function finalizar()
     {
         //POST 
         $data = json_decode(file_get_contents('php://input'), true);
@@ -214,18 +214,15 @@ class Requirements extends CI_Controller
             "fecha_fin_req" => date('Y-m-d H:i:s')
         ];
         $json['res'] = false;
-        $json['response_type'] = '';
+        $json['response_type'] = 'danger';
 
-        //SE ELIMINA
-        // if ($estatus === '8') {
-        $response = $this->Requerimiento_model->delete_requerimiento($data);
-        echo 'RESPUESTA:', $response;
+        $response = $this->Requerimiento_model->finalizar($data);
+
         if ($response ===  TRUE) {
-            $json['message'] = 'Eliminado correctamente';
+            $json['message'] = 'Requerimiento finalizado';
             $json['res'] = $response;
             $json['response_type'] = 'info';
         }
-        // }
         echo json_encode($json);
     }
     public function noelegido()
@@ -359,7 +356,8 @@ class Requirements extends CI_Controller
                     'usuario_id' => $this->usuario_id,
                     'notificados_req' => $tipo_notificacion,
                     'republicado' => $republica,
-                    'fecha_req' => $date
+                    'fecha_req' => $date,
+                    'estatus' => 17,
                 ];
                 $update_req = $this->requerimiento_model->create(
                     $arr_insert,
@@ -563,10 +561,10 @@ class Requirements extends CI_Controller
                         'requerimiento_id' => $requerimiento_id,
                     ];
 
-                    $update_stat = $this->oportunidades_negocio_model->createstatus(
-                        $arr_estus,
-                        $this->usuario_id
-                    );
+                    // $update_stat = $this->oportunidades_negocio_model->createstatus(
+                    //     $arr_estus,
+                    //     $this->usuario_id
+                    // );
 
                     if (true) {
                         $data['mail']->subtitulo = str_replace(

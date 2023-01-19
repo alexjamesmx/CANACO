@@ -197,12 +197,12 @@ class Mis_oportunidades extends CI_Controller
         echo json_encode($myopn);
     }
 
-    public function misopsnr($key)
+    public function misopsnr($status)
     {
 
         $micom = $this->Reg_user->get_comername($this->usuario_id);
         $idcom = $micom[0]->negocio_id;
-        $myopn = $this->Reg_user->get_myop_number_nr($idcom, $key);
+        $myopn = $this->Reg_user->get_myop_number_nr($idcom, $status);
 
         echo json_encode($myopn);
     }

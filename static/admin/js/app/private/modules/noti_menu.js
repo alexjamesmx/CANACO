@@ -1,22 +1,28 @@
-jQuery( document ).ready( ( $ ) => {
+jQuery( document ).ready( ( $ ) =>
+{
   let misops
   let misreqs
   $.ajax( {
     url: `${base_url()}app/mis_oportunidades/misopsnr/17`,
-    success( res ) {
+    success( res )
+    {
       misops = parseInt( res )
       $.ajax( {
         url: `${base_url()}app/requirements/misreqs_activos`,
-        success( data ) {
+        success( data )
+        {
+          console.trace( 'Mostrando mis requerimientos activos y oportunidades de negocio que parpadean', 'OPORTUNIDADES -> ', res, 'REQUERIMIENTOS -> ', data )
           misreqs = parseInt( data )
           const notis = parseInt( misops ) + parseInt( misreqs )
-          if ( parseInt( misops ) > 0 ) {
+          if ( parseInt( misops ) > 0 )
+          {
             $( '#oportunidadesat' ).text( parseInt( misops ) )
             const te = `${parseInt( misops )} Oportunidades sin atender`
             $( '#oportunidadesat1' ).text( te )
             $( '#oportunidadesat2' ).text( te )
             $( '#oportunidadesat3' ).text( parseInt( misops ) )
-          } else {
+          } else
+          {
             $( 'notificationDropdown2' ).html( '' )
             $( 'notificationDropdown1' ).html( '' )
             $( '#oportunidadesat' ).text( '' )
@@ -26,14 +32,17 @@ jQuery( document ).ready( ( $ ) => {
             $( '#oportunidadesat' ).removeClass()
             $( '#oportunidadesat3' ).removeClass()
           }
-          if ( !Number.isNaN( notis ) ) {
-            if ( notis > 0 ) {
+          if ( !Number.isNaN( notis ) )
+          {
+            if ( notis > 0 )
+            {
               $( '#trans-noty-container' ).html(
                 `
                           <span class="badge badge-pill badge-danger mb-1">&nbsp;${notis}&nbsp;</span>
                           `,
               )
-            } else {
+            } else
+            {
               $( '#trans-noty-container' ).html( '' )
             }
           }
@@ -43,29 +52,35 @@ jQuery( document ).ready( ( $ ) => {
   } )
   profile_pic()
 } )
-function profile_pic() {
+function profile_pic()
+{
   $.ajax( {
     url: `${base_url()}app/mis_oportunidades/soyafiliado`,
     datatype: 'json',
-    success( data ) {
+    success( data )
+    {
       const comercio = $.parseJSON( data )
-      if ( comercio[0].negocio_logo != null ) {
-        const img = `${base_url()}static/uploads/perfil/${comercio[0].negocio_logo}`
+      if ( comercio[ 0 ].negocio_logo != null )
+      {
+        const img = `${base_url()}static/uploads/perfil/${comercio[ 0 ].negocio_logo}`
         $( '#profile_pic' ).attr( 'src', img )
       }
     },
   } )
 }
-function getnumbers() {
+function getnumbers()
+{
   $.ajax( {
     url: `${base_url()}app/mis_oportunidades/misopsnr/17`,
-    success( data ) {
+    success( data )
+    {
       misops = parseInt( data )
     },
   } )
   $.ajax( {
     url: `${base_url()}app/requirements/misreqs_activos`,
-    success( data ) {
+    success( data )
+    {
       misreqs = parseInt( data )
     },
   } )

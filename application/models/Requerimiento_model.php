@@ -143,7 +143,7 @@ class Requerimiento_model extends CI_Model
     public function get_myreq_number_a($id)
     {
         $query = $this->db->query(
-            "SELECT * FROM requerimientos WHERE estatus is NULL  AND  usuario_id='" .
+            "SELECT * FROM requerimientos WHERE    usuario_id='" .
                 $id .
                 "' order by requerimientos.fecha_req ASC "
         );
@@ -381,12 +381,17 @@ class Requerimiento_model extends CI_Model
     }
     public function finalizar($data)
     {
+
+
+        $this->db->where('requerimiento_id', $data['req_id'])->set('estatus', $data['estatus'])->update('estatus_req');
         return
             $this->db
             ->where('req_id', $data['req_id'])
             ->set($data)
             ->update('requerimientos');
     }
+
+
     public function get_nomatch_detalle($id, $nomatch_id)
     {
         return $this->db

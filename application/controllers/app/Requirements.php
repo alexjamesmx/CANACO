@@ -225,6 +225,33 @@ class Requirements extends CI_Controller
         }
         echo json_encode($json);
     }
+    public function eselegido()
+    {
+        //POST 
+        $data = json_decode(file_get_contents('php://input'), true);
+        $requerimiento_id =  $data["requerimiento_id"];
+        $estatus = $data["estatus"];
+        $comentario = $data["comentario"];
+        $data = [
+            'req_id' => $requerimiento_id,
+            'estatus' => $estatus,
+            'comentarios_req' => $comentario,
+            "fecha_fin_req" => date('Y-m-d H:i:s')
+        ];
+        $json['res'] = false;
+        $json['response_type'] = '';
+
+        //SE ELIMINA
+        // if ($estatus === '8') {
+        $response = $this->Requerimiento_model->finalizar($data);
+        if ($response ===  TRUE) {
+            $json['message'] = 'Eliminado correctamente';
+            $json['res'] = $response;
+            $json['response_type'] = 'info';
+        }
+        // }
+        echo json_encode($json);
+    }
     public function noelegido()
     {
         $requerimiento_id = $this->input->post('requerimiento_id');
@@ -280,7 +307,6 @@ class Requirements extends CI_Controller
             $array1,
             $array2
         );
-
 
         if ($data['requerimientos']) {
             $this->load->view('app/private/components/tablareq', $data);
@@ -561,10 +587,13 @@ class Requirements extends CI_Controller
                         'requerimiento_id' => $requerimiento_id,
                     ];
 
-                    // $update_stat = $this->oportunidades_negocio_model->createstatus(
-                    //     $arr_estus,
-                    //     $this->usuario_id
-                    // );
+                    $this->oportunidades_negocio_model->createstatus($arr_estus);
+
+
+
+
+                    //Crear estatus de la oportunidad de negocio
+
 
                     if (true) {
                         $data['mail']->subtitulo = str_replace(
@@ -884,8 +913,6 @@ class Requirements extends CI_Controller
         }
     }
 
-
-
     /**/
     public function testshow()
     {
@@ -947,6 +974,8 @@ class Requirements extends CI_Controller
         $myreqn = $this->Requerimiento_model->get_myreq_number_a(
             $this->usuario_id
         );
+        // echo 'mis reques -> ' . $myreqn, 'mi usuario -> ', $this->usuario_id;
+
         echo json_encode($myreqn);
     }
     public function subir_encuestas()

@@ -241,7 +241,13 @@ class Informacion_perfil extends CI_Controller
 
 
         $reqsr = $this->Notificacion_model->reqpdrs();
-        $porcentajehoy = ($reqsr / $reqs) * 100;
+
+        if ($reqs > 0  || $reqsr > 0) {
+          $porcentajehoy = ($reqsr / $reqs) * 100;
+        } else {
+          $porcentajehoy = 0;
+        }
+
         $string4 = $data_mail->llamado_accion;
         $data_mail->llamado_accion = str_replace('%porcentaje%', $porcentajehoy, $string4);
 

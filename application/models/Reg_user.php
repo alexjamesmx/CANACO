@@ -21,6 +21,15 @@ class Reg_user extends CI_Model
         $this->db->where('req_id', $req_id);
         return $this->db->update('requerimientos');
     }
+
+    public function update_status_req($op, $req_id, $estatus)
+    {
+
+        $this->db->set('estatus', $estatus);
+        $this->db->where('requerimiento_id 	', $req_id);
+        $this->db->where('opnegocio_id', $op);
+        return $this->db->update('estatus_req');
+    }
     public function create($data, $return_id)
     {
         try {
@@ -344,10 +353,12 @@ class Reg_user extends CI_Model
 
 
 
-    public function get_myop_number_nr($idcom, $key)
+    public function get_myop_number_nr($idcom, $status)
     {
         $query = $this->db->query(
-            "SELECT * FROM requerimientos, comercios, oportunidades_negocio, estatus_req, usuarios WHERE  oportunidades_negocio.opneg_id=estatus_req.opnegocio_id AND requerimientos.req_id=oportunidades_negocio.requerimiento_id AND requerimientos.usuario_id=comercios.usuario_id AND comercios.usuario_id=usuarios.usuario_id  AND estatus_req.estatus='" . $key . "' AND comercio_id='" . $idcom . "'   "
+            // "SELECT * FROM requerimientos, comercios, oportunidades_negocio, estatus_req, usuarios WHERE  oportunidades_negocio.opneg_id=estatus_req.opnegocio_id AND requerimientos.req_id=oportunidades_negocio.requerimiento_id AND requerimientos.usuario_id=comercios.usuario_id AND comercios.usuario_id=usuarios.usuario_id  AND estatus_req.estatus='" . $status . "' AND comercio_id='" . $idcom . "'   "
+
+            "SELECT * from requerimientos as req JOIN oportunidades_negocio as op_n on op_n.requerimiento_id = req.req_id where op_n.comercio_id = '" . $idcom . "' and req.estatus = '" . $status . "'"
         );
         return $query->num_rows();
     }

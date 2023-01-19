@@ -210,21 +210,9 @@ jQuery( document ).ready( ( $ ) =>
           success: ( response ) =>
           {
             toastr[ response.response_type ]( response.message )
-            $.ajax( {
-              url: `${base_url()}Validaciones/validacionGrande`,
-              success( data )
-              {
-                const porcentajePerfil = parseInt( data.message, 10 )
-                $( '#progreso' ).attr( 'style', `width: ${porcentajePerfil}%` )
-                $( '#progreso' ).text( `${porcentajePerfil}%` )
-                reload_keywords()
-                // if (porcentajePerfil < 70) {
-                //   minimo.style.display = 'block'
-                // } else {
-                //   minimo.style.display = 'none'
-                // }
-              },
-            } )
+            alert( 'Cuando actualizamos datos del comercio' )
+            reload_keywords()
+
           },
           error: () =>
           {

@@ -30,8 +30,12 @@ class Oportunidades_negocio_model extends CI_Model
     public function createstatus($entry, $return_id = FALSE)
     {
         try {
+            // $this->db->insert('estatus_req', $entry);
+            // return ($return_id) ? $this->db->insert_id() : TRUE;
+
             $this->db->insert('estatus_req', $entry);
-            return ($return_id) ? $this->db->insert_id() : TRUE;
+
+            return $this->db->insert_id();
         } catch (Exception $e) {
             return $e->getMessage();
         }

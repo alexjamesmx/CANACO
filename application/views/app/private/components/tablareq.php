@@ -113,7 +113,7 @@
                             'Hay comercios interesados en tu requerimiento';
                     } elseif ($interesados == 0) {
                         $estado =
-                            'En espera';
+                            'En espera de aplicante';
                     }
                     if (
                         $usuario_elegido !== '0' &&
@@ -122,7 +122,8 @@
                         $estado =
                             'Se ha elegido a un comercio para resolver este requerimiento';
                     }
-                    if (isset($estatus)) {
+                    //REQUERIMIENTO CONCLUIDO
+                    if ($estatus > 20) {
                         $estado = 'Requerimiento concluido';
                     }
                     ?>

@@ -375,6 +375,13 @@ class User extends CI_Controller
         //ESTATUS 18 = Notificación aceptada con respuesta del candidato - ACEPTAR APLICACION
         $this->Reg_user->update_opnegocio($req_id, '18');
 
+        // print_r($opnegocio_id);
+        // echo '<br>-------';
+        // print_r($req_id);
+
+        // die();
+        $this->Reg_user->update_status_req($opnegocio_id, $req_id, '18');
+
         $email = $usuario[0]['email_auth'];
         // //NOTIFICACION - Interés por tu requerimiento
         $data_mail = $this->Notificacion_model->get_notificacion("14");
@@ -383,20 +390,22 @@ class User extends CI_Controller
         $comercio_interesado = $this->Reg_user->get_comercio_data_by_userid($this->session->userdata('usuario_id'));
         $data_mail->titulo = str_replace('%EMPRESA%', $comercio_interesado['usuario_id'], $data_mail->titulo);
 
-        $this->load->view('app/private/components/noti', $data_mail);
-        if (isset($doc)) {
-            $atach = base_url() . '/static/uploads/cotizaciones/' . $doc; // doc es el nombre de la cotizacion guardada en la base de datos 
-        } else {
-            $atach = null;
-        }
 
-        send_mail(
-            'ENLACE-CANACO', //Quien lo envia
-            $email, //destinatario rempplazar por $email
-            $comercio_interesado['negocio_nombre'] . ' ha aplicado para tu requerimiento', //asunto
-            $html = ($this->load->view('app/private/components/noti', $data_mail, true)), //Cuerpo (puede ser una vista) 
-            $attach = $atach //adjunto
-        );
+        // TODO ESTO LO VOY A COMENTAR
+        // $this->load->view('app/private/components/noti', $data_mail);
+        // if (isset($doc)) {
+        //     $atach = base_url() . '/static/uploads/cotizaciones/' . $doc; // doc es el nombre de la cotizacion guardada en la base de datos 
+        // } else {
+        //     $atach = null;
+        // }
+
+        // send_mail(
+        //     'ENLACE-CANACO', //Quien lo envia
+        //     $email, //destinatario rempplazar por $email
+        //     $comercio_interesado['negocio_nombre'] . ' ha aplicado para tu requerimiento', //asunto
+        //     $html = ($this->load->view('app/private/components/noti', $data_mail, true)), //Cuerpo (puede ser una vista) 
+        //     $attach = $atach //adjunto
+        // );
     }
 
 
